@@ -17,7 +17,7 @@ Specialist sub-agents for AI-assisted development, packaged as a Claude Code Plu
 | `ac-frontend`  | HTML, CSS, JS/TS, React, Vue, Angular, design-to-code         |
 | `ac-performance` | Performance audits, profiling, bottleneck analysis          |
 | `ac-research`  | Technology evaluation, best practices, API/SDK documentation  |
-| `ac-review`    | PR reviews, code quality checks, security audits              |
+| `ac-review`    | PR reviews, code quality checks, architecture analysis, security audits |
 | `ac-testing`   | Writing tests, TDD, coverage improvement, test infrastructure |
 
 ## Design Principles
