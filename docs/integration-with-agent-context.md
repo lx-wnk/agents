@@ -84,7 +84,7 @@ Append the content to the specified memory file under `.agent-context/`.
 
 ## Layer 0 Integration
 
-In the [Agent-Context](https://github.com/lx-wnk/Agent-Context) repo, `context/layer0-agent-workflow.md` — "Delegating to Specialist Agents" section — describes the full protocol for injecting context and consuming persist blocks. Agents installed via the `agents@lx-wnk` plugin are available as subagent types matching the `name:` field in each agent's YAML frontmatter.
+In the Agent-Context repo, [`context/layer0-agent-workflow.md`](https://github.com/lx-wnk/Agent-Context/blob/main/context/layer0-agent-workflow.md) — "Delegating to Specialist Agents" section — describes the full protocol for injecting context and consuming persist blocks. Agents installed via the `agents@lx-wnk` plugin are available as subagent types matching the `name:` field in each agent's YAML frontmatter.
 
 ## Version Compatibility
 
