@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PersistBlock",
+  "description": "Typed persist block returned by write-capable agents for project memory updates",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": ["schemaVersion", "type", "title", "context", "decision", "consequences"],
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": { "const": 1, "description": "Schema version — always 1" },
+        "type": { "const": "adr", "description": "Architecture Decision Record" },
+        "title": { "type": "string", "description": "Short, slug-friendly decision title" },
+        "context": { "type": "string", "description": "Situation and why this decision was needed" },
+        "decision": { "type": "string", "description": "What was decided" },
+        "consequences": { "type": "string", "description": "Positive and negative trade-offs" }
+      }
+    },
+    {
+      "type": "object",
+      "required": ["schemaVersion", "type", "file", "content"],
+      "additionalProperties": false,
+      "properties": {
+        "schemaVersion": { "const": 1, "description": "Schema version — always 1" },
+        "type": { "const": "memory-update", "description": "Append content to a project memory file" },
+        "file": { "type": "string", "description": "Relative path to the memory file (e.g. memory/lessons.md)" },
+        "content": { "type": "string", "description": "Content to append to the memory file" }
+      }
+    }
+  ]
+}

@@ -95,7 +95,7 @@ Only declare tools the agent actually uses. Unnecessary tools increase the attac
 | Research                         | `Read, Glob, Grep, Bash, WebFetch, WebSearch` |
 | Browser Automation               | `Read, Glob, Grep, Bash, Write` + MCP Tools   |
 
-Only use the `Agent` tool for agents that explicitly dispatch sub-agents (e.g., `ac-review` for parallel review perspectives).
+Only use the `Agent` tool for agents that explicitly dispatch sub-agents (e.g., `review` for parallel review perspectives).
 
 ---
 
@@ -297,7 +297,29 @@ Check all items before committing a new agent:
 
 ---
 
-## 8. Sources
+## 8. Agent Disambiguation
+
+These four agents overlap in scope — use this matrix to route correctly.
+
+| Agent | Primary Question | Output Artifact | Reads Source Code? | Writes Files? | When NOT to Use |
+| ----- | ---------------- | --------------- | ------------------ | ------------- | --------------- |
+| `architect` | How should this be structured? | ADRs, design docs | Yes (read-only) | Yes — `docs/architecture/` only | Don't use for PR line-by-line review or general risk assessment |
+| `review` | Is this change safe to merge? | Findings report | Yes (read-only) | Never | Don't use for designing new architecture or evaluating technology options |
+| `analysis` | What is the blast radius / risk / complexity? | Risk, impact, or debt report | Yes (read-only) | Never | Don't use when you need a design recommendation — analysis informs, architect decides |
+| `discovery` | What does this codebase do? | Codebase map | Yes (read-only) | Never | Don't use for reviewing specific changes or assessing risks — use for onboarding and orientation |
+
+### Decision Rules
+
+- **Need a design** → `architect`
+- **Need a verdict on a change** → `review`
+- **Need evidence before deciding** → `analysis`
+- **Need a map before starting** → `discovery`
+
+These agents are complementary, not substitutes. A typical flow: `discovery` (understand the system) → `analysis` (assess blast radius) → `architect` (design the solution) → `review` (verify the implementation).
+
+---
+
+## 9. Sources
 
 ### Anthropic
 
