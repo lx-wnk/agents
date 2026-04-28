@@ -1,1 +1,11 @@
-{"name": "agents", "version": "1.0.0", "agents": {"directory": "agents"}}
+{
+    "name": "agents",
+    "version": "1.0.0",
+    "description": "Specialist sub-agents for AI-assisted development.",
+    "author": {
+        "name": "Alexander Wink",
+        "email": "git@jinnoflife.com"
+    },
+    "repository": "https://github.com/lx-wnk/agents",
+    "license": "MIT"
+}

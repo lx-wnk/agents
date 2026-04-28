@@ -1,1 +1,24 @@
-{"id": "agents", "name": "AC Agents", "description": "Specialist sub-agents for AI-assisted development.", "version": "1.0.0", "publisher": "lx-wnk", "repository": "https://github.com/lx-wnk/agents"}
+{
+    "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+    "name": "lx-wnk",
+    "version": "1.0.0",
+    "description": "Specialist sub-agents for AI-assisted development.",
+    "owner": {
+        "name": "Alexander Wink",
+        "email": "git@jinnoflife.com"
+    },
+    "plugins": [
+        {
+            "name": "agents",
+            "description": "Specialist sub-agents for AI-assisted development, packaged as a Claude Code Plugin.",
+            "source": "./",
+            "version": "1.0.0",
+            "author": {
+                "name": "Alexander Wink",
+                "email": "git@jinnoflife.com"
+            },
+            "category": "development",
+            "keywords": ["agents", "sub-agents", "development", "ai"]
+        }
+    ]
+}
