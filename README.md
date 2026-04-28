@@ -28,10 +28,15 @@ Specialist sub-agents for AI-assisted development, packaged as a Claude Code Plu
 
 ## Installation
 
-Add to your `plugins.json`:
+```bash
+claude plugin marketplace add https://github.com/lx-wnk/agents
+claude plugin install agents@lx-wnk
+```
 
-```json
-"agents@lx-wnk"
+Once installed, agents are available as `subagent_type` in the `Agent` tool:
+
+```
+subagent_type: "analysis"   # or backend, frontend, debug, etc.
 ```
 
 ## Usage with Agent-Context
