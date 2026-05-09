@@ -4,21 +4,26 @@ Specialist sub-agents for AI-assisted development, packaged as a Claude Code Plu
 
 ## Agents
 
-| Agent          | Role                                                          |
-| -------------- | ------------------------------------------------------------- |
-| `analysis`     | Impact analysis, dependency analysis, risk & complexity       |
-| `architect`    | System & component architecture design and review            |
-| `backend`      | Server-side development, APIs, database, business logic       |
-| `chrome`       | Chrome browser automation, visual testing, GIF recording      |
-| `concept`      | Technical concepts, effort estimates, user stories            |
-| `debug`        | Bug investigation, root cause analysis, test failure fixes    |
-| `discovery`    | Codebase mapping, architecture exploration, onboarding        |
-| `docs`         | READMEs, API docs, ADRs, changelogs, project memory updates   |
-| `frontend`     | HTML, CSS, JS/TS, React, Vue, Angular, design-to-code         |
-| `performance`  | Performance audits, profiling, bottleneck analysis          |
-| `research`     | Technology evaluation, best practices, API/SDK documentation  |
-| `review`       | PR reviews, code quality checks, architecture analysis, security audits |
-| `testing`      | Writing tests, TDD, coverage improvement, test infrastructure |
+| Agent           | Role                                                                       |
+| --------------- | -------------------------------------------------------------------------- |
+| `accessibility` | WCAG audits, ARIA review, keyboard navigation, screen-reader compatibility |
+| `analysis`      | Impact analysis, dependency analysis, risk & complexity                    |
+| `architect`     | System & component architecture design and review                          |
+| `backend`       | Server-side development, APIs, business logic, service architecture        |
+| `chrome`        | Chrome browser automation, visual testing, GIF recording                   |
+| `concept`       | Technical concepts, effort estimates, user stories                         |
+| `database`      | Schema design, migrations, indexing, query optimization                    |
+| `debug`         | Bug investigation, root cause analysis, test failure fixes                 |
+| `devops`        | CI/CD pipelines, container builds, Kubernetes, Infrastructure-as-Code      |
+| `discovery`     | Codebase mapping, architecture exploration, onboarding                     |
+| `docs`          | READMEs, API docs, ADRs, changelogs, project memory updates                |
+| `frontend`      | HTML, CSS, JS/TS, React, Vue, Angular, design-to-code                      |
+| `performance`   | Performance audits, profiling, bottleneck analysis                         |
+| `refactor`      | Large-scale refactors, pattern extraction, modernization, dead-code        |
+| `research`      | Technology evaluation, best practices, API/SDK documentation               |
+| `review`        | PR reviews, code quality checks, architecture triage                       |
+| `security`      | OWASP audits, secret detection, auth review, CVE checks, threat modeling   |
+| `testing`       | Writing tests, TDD, coverage improvement, test infrastructure              |
 
 ## Design Principles
 

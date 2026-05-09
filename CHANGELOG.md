@@ -6,6 +6,78 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.1.0] — 2026-05-09
+
+### Added — New Agents
+
+Five new specialist agents based on community consensus (VoltAgent 131+, wshobson 185, contains-studio rosters) and the May 2026 best-practices research.
+
+#### accessibility (new)
+- WCAG 2.2 / 3.0 audits, ARIA review, keyboard navigation, screen-reader compatibility
+- Tools: `Read, Edit, Glob, Grep, Bash, WebFetch`; `model: sonnet`, `effort: high`
+- Core principle: "Semantics first, ARIA second."
+
+#### database (new)
+- Schema design, migrations (forward and rollback), indexing, query optimization
+- Tools: `Read, Write, Edit, Glob, Grep, Bash, WebFetch`; `model: sonnet`, `effort: high`, `memory: project`
+- Core principle: "Migrations are one-way doors until proven otherwise."
+
+#### devops (new)
+- CI/CD pipelines (GitHub Actions, GitLab CI), container builds, Kubernetes / Helm, Terraform/Pulumi/OpenTofu
+- Tools: `Read, Write, Edit, Glob, Grep, Bash, WebFetch`; `model: sonnet`, `effort: high`, `memory: project`
+- Core principle: "Pipelines are code under the same review bar as application code."
+
+#### refactor (new)
+- Large-scale refactors, pattern extraction, dead-code removal, modernization
+- Tools: `Read, Write, Edit, Glob, Grep, Bash`; `model: opus`, `effort: xhigh`, `memory: project`
+- Core principle: "Behavior preservation is the contract."
+
+#### security (new)
+- OWASP audits, secret detection, AuthZ/AuthN review, dependency CVE assessment, threat modeling
+- Tools: `Read, Glob, Grep, Bash, WebFetch, WebSearch`; `model: opus`, `effort: high`, `memory: project`; read-only
+- Core principle: "Exploitability over theory."
+
+### Changed — Scope Splits
+
+Three existing agents narrowed in scope to delegate specialized work to the new agents.
+
+#### backend
+- `version`: 1.0.0 → 1.1.0
+- Migrations and schema work removed from primary scope; delegate to `database`
+- Description and Role updated to reference the delegation
+- Implementation conventions section: removed migration-tool guidance per ecosystem
+
+#### frontend
+- `version`: 1.0.0 → 1.1.0
+- Deep WCAG / ARIA / screen-reader work removed from primary scope; delegate to `accessibility`
+- Frontend retains baseline a11y (semantic HTML, keyboard reachability, alt text)
+- Description, Role, Quality Gate, and Checklist updated to reference the delegation
+
+#### review
+- `version`: 1.0.0 → 1.1.0
+- Deep security audits removed from primary scope; delegate to `security`
+- Multi-Perspective table: "Security" renamed to "Security triage" with explicit escalation rule
+- Description and Role updated to reference the delegation
+
+### Documentation
+
+#### docs/best-practices-agent-creation.md
+- §2 Frontmatter Design: rewrite with all 16 official frontmatter fields, grouped by purpose (Identity, Tools, Model & Effort, Permissions & Isolation, Context & Memory, Lifecycle); plugin-agent restrictions documented (`hooks`, `mcpServers`, `permissionMode` not allowed)
+- §4 Context Engineering: added Tool Clearing, Compaction, Memory tool, Context Rot
+- §5 Workflow Design: replaced "MCP if available" guidance with `mcpServers` field guidance for non-plugin agents; added Hooks-as-Gates, Worktree Isolation, Background Subagents
+- §6 Anti-Patterns: added subagent-nesting, redundant personas, project-MCP-bloat, parallel-writer-races
+- NEW §7 Agent Composition Patterns: Planner-Executor-Verifier, Evaluator-Optimizer, Fan-out/Fan-in, Chain-of-Agents, Sequential-vs-Parallel decision
+- NEW §8 Skills vs Subagents vs Agent Teams vs Hooks: decision matrix
+- §9 Checklist: updated for new frontmatter fields
+- §11 Sources: 12 new entries (Anthropic Cookbook context engineering, Agent Teams docs, VoltAgent / wshobson rosters, claudefa.st patterns, 2026 Trends Report)
+
+### Infrastructure
+
+#### README.md
+- Agents table: 5 new entries (accessibility, database, devops, refactor, security); 3 updated descriptions (backend, frontend, review)
+
+---
+
 ## [1.0.0] — 2026-04-22
 
 ### Changed
