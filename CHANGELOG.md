@@ -6,6 +6,42 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.2.0] — 2026-05-17
+
+### Added — `incident` agent
+
+Production incident responder, modelled on the Anthropic Managed Agents SRE
+Incident Responder cookbook.
+
+- Read-only orchestrator: triage → timeline → evidence → mitigation options →
+  handoff to `devops` (execute), `debug` (root cause), `docs` (postmortem)
+- Tools: `Read, Glob, Grep, Bash, WebFetch, Agent`; `model: opus`,
+  `effort: xhigh`, `maxTurns: 30`, `memory: project`
+- Core principle: "Restore service first, learn second."
+- Output includes a structured postmortem stub for finalization by `docs`
+
+### Changed
+
+#### devops
+- `version`: 1.1.0 → 1.2.0 (was bumped to 1.1.0 in v1.1.0 of the plugin and is
+  bumped again here because the description references the new agent)
+- Description: `production incident investigation delegate to debug` →
+  `production incident triage delegate to incident; in-code root cause delegate
+  to debug`
+
+#### docs/best-practices-agent-creation.md
+- §10 Agent Disambiguation: `incident` added to Read-only / Analytical table;
+  Decision Rules gain "Need to restore production" → `incident`
+
+#### docs/integration-with-agent-context.md
+- Context injection table: `incident` row added (layer1 service inventory,
+  layer2 runbook conventions)
+
+#### README.md
+- Agents table: `incident` row added
+
+---
+
 ## [1.1.0] — 2026-05-17
 
 ### Added — New Agents

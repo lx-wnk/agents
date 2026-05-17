@@ -18,6 +18,7 @@ Specialist sub-agents for AI-assisted development, packaged as a Claude Code Plu
 | `discovery`     | Codebase mapping, architecture exploration, onboarding                     |
 | `docs`          | READMEs, API docs, ADRs, changelogs, project memory updates                |
 | `frontend`      | HTML, CSS, JS/TS, React, Vue, Angular, design-to-code                      |
+| `incident`      | Production incident triage, timeline reconstruction, mitigation strategy   |
 | `performance`   | Performance audits, profiling, bottleneck analysis                         |
 | `refactor`      | Large-scale refactors, pattern extraction, modernization, dead-code        |
 | `research`      | Technology evaluation, best practices, API/SDK documentation               |
