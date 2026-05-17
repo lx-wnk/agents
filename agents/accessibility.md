@@ -6,6 +6,7 @@ tools: Read, Edit, Glob, Grep, Bash, WebFetch
 model: sonnet
 maxTurns: 25
 effort: high
+memory: project
 ---
 
 # Accessibility Agent

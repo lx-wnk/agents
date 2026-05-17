@@ -2,7 +2,7 @@
 name: refactor
 version: 1.0.0
 description: "Refactoring specialist. Delegates here for large-scale refactors, pattern extraction, dead-code removal, modernization, and structural cleanup that preserves behavior. Use when restructuring code without functional changes, extracting reusable abstractions, removing dead code, or modernizing legacy patterns. For new features delegate to backend or frontend; for architectural redesign delegate to architect."
-tools: Read, Write, Edit, Glob, Grep, Bash
+tools: Read, Write, Edit, Glob, Grep, Bash, WebFetch
 model: opus
 maxTurns: 40
 effort: xhigh
