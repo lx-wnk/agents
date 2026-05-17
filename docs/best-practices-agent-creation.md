@@ -63,7 +63,7 @@ Use `disallowedTools` for read-mostly agents that need many MCP tools — listin
 | Field      | Description                                                                  |
 | ---------- | ---------------------------------------------------------------------------- |
 | `model`    | `opus` / `sonnet` / `haiku` / `inherit` (default). See table below           |
-| `effort`   | `low` / `medium` / `high` / `xhigh` / `max` — token budget and reasoning depth |
+| `effort`   | `low` / `medium` / `high` / `max` — token budget and reasoning depth. This repo also uses `xhigh` (between `high` and `max`) for deep-reasoning agents like `debug`, `performance`, `refactor` — repo convention, not an official spec value |
 | `maxTurns` | Realistic ceiling. Too high = runaway costs; too low = premature termination |
 
 #### Permissions & Isolation
@@ -410,7 +410,7 @@ Check all items before committing a new agent:
 - [ ] `tools` (or `disallowedTools`) reduced to minimum — no `Write`/`Edit` on read-only agents
 - [ ] `model` appropriate to task (not reflexively `opus`)
 - [ ] `maxTurns` set realistically (not 100 as default)
-- [ ] `effort` set (`low`/`medium`/`high`/`xhigh`/`max`)
+- [ ] `effort` set (`low`/`medium`/`high`/`max`, or repo-specific `xhigh` for deep-reasoning agents)
 - [ ] `isolation: worktree` set for any agent that may run in parallel with other writers
 - [ ] `memory: project` only on agents that genuinely persist learnings across sessions
 - [ ] `mcpServers` declared only when the agent genuinely requires a specific server (and documented in prose)
@@ -499,7 +499,7 @@ A typical implementation flow: `discovery` → `analysis` → `architect` → `b
 ### Anthropic — Claude Code & Skills
 
 - [Create custom subagents](https://code.claude.com/docs/en/sub-agents) — Full frontmatter reference (16 fields)
-- [Orchestrate teams of Claude Code sessions](https://code.claude.com/docs/en/agent-teams) — Agent Teams primitive (Opus 4.6+)
+- [Orchestrate teams of Claude Code sessions](https://code.claude.com/docs/en/agent-teams) — Agent Teams primitive
 - [Extend Claude with skills](https://code.claude.com/docs/en/skills) — Skill packaging
 - [Agent Skills overview](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview) — Skills vs Subagents
 - [Skills explained](https://claude.com/blog/skills-explained) — Lazy-loaded portable expertise

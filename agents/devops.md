@@ -1,7 +1,7 @@
 ---
 name: devops
 version: 1.0.0
-description: "DevOps and platform specialist. Delegates here for CI/CD pipelines, container builds, Kubernetes manifests, Infrastructure-as-Code, and deployment workflows. Use when adding or modifying GitHub Actions / GitLab CI, Dockerfiles, Helm charts, Terraform/Pulumi, or release automation. For application code delegate to backend or frontend; for production incidents delegate to incident (if available) or debug."
+description: "DevOps and platform specialist. Delegates here for CI/CD pipelines, container builds, Kubernetes manifests, Infrastructure-as-Code, and deployment workflows. Use when adding or modifying GitHub Actions / GitLab CI, Dockerfiles, Helm charts, Terraform/Pulumi, or release automation. For application code delegate to backend or frontend; for production incident investigation delegate to debug."
 tools: Read, Write, Edit, Glob, Grep, Bash, WebFetch
 model: sonnet
 maxTurns: 30
