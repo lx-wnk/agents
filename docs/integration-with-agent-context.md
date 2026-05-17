@@ -35,16 +35,21 @@ The specialist does not know about `.agent-context/` — you must provide contex
 
 ### What Context to Include
 
-| Agent         | Inject from               |
-| ------------- | ------------------------- |
-| `backend`     | layer1 (stack), layer2 (rules), decisions.json (patterns) |
-| `frontend`    | layer1 (stack), layer2 (CSS/component conventions)         |
-| `testing`     | layer2 (test conventions, QA command)                      |
-| `architect`   | layer2 (conventions), decisions.json (existing ADRs)       |
-| `review`      | layer2 (coding conventions)                                |
-| `concept`     | layer1 (stack), decisions.json (constraints)               |
-| `discovery`   | layer1 (stack) — optional                                  |
-| `chrome`      | layer1 (local domains/ports)                               |
+| Agent           | Inject from                                                       |
+| --------------- | ----------------------------------------------------------------- |
+| `backend`       | layer1 (stack), layer2 (rules), decisions.json (patterns)         |
+| `frontend`      | layer1 (stack), layer2 (CSS/component conventions)                |
+| `database`      | layer1 (engine), layer2 (migration tool), decisions.json          |
+| `accessibility` | layer1 (framework), layer2 (target WCAG level)                    |
+| `devops`        | layer1 (cloud / runtime), layer2 (deployment conventions)         |
+| `refactor`      | layer1 (stack), layer2 (rules, QA command)                        |
+| `testing`       | layer2 (test conventions, QA command)                             |
+| `architect`     | layer2 (conventions), decisions.json (existing ADRs)              |
+| `review`        | layer2 (coding conventions)                                       |
+| `security`      | layer2 (security policy), decisions.json (auth/crypto choices)    |
+| `concept`       | layer1 (stack), decisions.json (constraints)                      |
+| `discovery`     | layer1 (stack) — optional                                         |
+| `chrome`        | layer1 (local domains/ports)                                      |
 
 For `debug`, `analysis`, `performance`, `research`: no structured context injection needed — they work well from the task description alone.
 
