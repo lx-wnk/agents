@@ -70,7 +70,7 @@ Use `disallowedTools` for read-mostly agents that need many MCP tools — listin
 
 | Field            | Description                                                                                          |
 | ---------------- | ---------------------------------------------------------------------------------------------------- |
-| `permissionMode` | `default` / `acceptEdits` / `auto` / `dontAsk` / `bypassPermissions` / `plan`. **Not allowed in plugin agents.** |
+| `permissionMode` | `default` / `acceptEdits` / `auto` / `dontAsk` / `bypassPermissions` / `plan`. Use sparingly in plugin agents — affects user permission UX |
 | `isolation`      | `worktree` runs the agent in a temporary git worktree; auto-cleans if no changes. Critical for parallel writers |
 | `background`     | `true` for long-running tasks that should not block the main thread                                  |
 
@@ -86,12 +86,16 @@ Use `disallowedTools` for read-mostly agents that need many MCP tools — listin
 
 | Field        | Description                                                                                                    |
 | ------------ | -------------------------------------------------------------------------------------------------------------- |
-| `mcpServers` | Agent-scoped MCP servers, inline or by reference. Keeps tool descriptions out of the parent context. **Not allowed in plugin agents.** |
-| `hooks`      | Subagent-scoped lifecycle hooks (`PreToolUse`, `PostToolUse`, `Stop`, etc.). **Not allowed in plugin agents.** |
+| `mcpServers` | Agent-scoped MCP servers, inline or by reference. Keeps tool descriptions out of the parent context |
+| `hooks`      | Subagent-scoped lifecycle hooks (`PreToolUse`, `PostToolUse`, `Stop`, etc.). User-environment concern — declare only when the plugin owns the lifecycle |
 
-### Plugin-Agent Restrictions
+### Plugin-Agent Considerations
 
-Agents distributed via a Claude Code plugin (like this repository) **cannot** declare `hooks`, `mcpServers`, or `permissionMode`. These are user-environment concerns and must remain in the user's `.claude/settings.json` or `.mcp.json`. Reference required MCP servers in prose ("This agent requires the `claude-in-chrome` MCP server.") rather than the frontmatter field.
+All 16 frontmatter fields are technically valid for plugin-distributed agents, but they differ in how cleanly they compose with the user's environment:
+
+- **`mcpServers` is fully supported and recommended** when the agent depends on a specific MCP server. See `agents/chrome.md` for a reference using `claude-in-chrome`. Document the required server in the agent's prose section too, so users know what to install.
+- **`hooks`** are user-environment configuration in spirit. Declare them in a plugin agent only when the lifecycle gate is intrinsic to the agent's contract (e.g., a `Stop` hook that the agent itself depends on). For project-wide gates (format-on-save, secret-scan), keep them in the user's `.claude/settings.json`.
+- **`permissionMode`** changes the user's permission UX. Use sparingly and only with a clear justification — auto-approving edits in a plugin agent can surprise users.
 
 ### Description Design
 
@@ -267,24 +271,24 @@ Describe error handling explicitly:
 
 ### MCP Tool References
 
-For **plugin-distributed agents** (no `mcpServers` field allowed), phrase MCP usage conditionally — the user's environment may not have the server installed:
+For **optional** MCP integrations (the agent works without the server but benefits when present), phrase usage conditionally:
 
 ```markdown
 Use documentation MCP tools if available (e.g., context7) for framework lookups.
 ```
 
-For **standalone agents in a user's `.claude/agents/`**, prefer hard-scoping with the `mcpServers` frontmatter field over conditional prose. This keeps tool descriptions out of the parent context and makes the requirement explicit:
+For **required** MCP integrations (the agent cannot do its job without the server), hard-scope it via the `mcpServers` frontmatter field — including in plugin-distributed agents. This keeps tool descriptions out of the parent context and makes the requirement explicit:
 
 ```yaml
 mcpServers:
   - context7
 ```
 
-If the server is required but the agent is plugin-distributed, state the requirement in prose at the top of the prompt and exit gracefully when unavailable (see `chrome` agent for a reference pattern).
+Always document the required server in prose at the top of the prompt too (see `agents/chrome.md` for a reference). That way users know what to install before invoking the agent.
 
 ### Hooks as Deterministic Gates
 
-Hooks (`PreToolUse`, `PostToolUse`, `Stop`, etc.) execute deterministic shell commands around tool calls. Use them when a check **must** run — e.g., format on save, lint before commit, secret-scan before a Write. Hooks are user-environment configuration and **not allowed in plugin agents**; document the expected hook in the agent's prompt instead.
+Hooks (`PreToolUse`, `PostToolUse`, `Stop`, etc.) execute deterministic shell commands around tool calls. Use them when a check **must** run — e.g., format on save, lint before commit, secret-scan before a Write. For project-wide gates, prefer the user's `.claude/settings.json`; declare hooks in a plugin agent only when the gate is intrinsic to that agent's contract.
 
 ### Worktree Isolation for Parallel Writers
 
@@ -409,7 +413,8 @@ Check all items before committing a new agent:
 - [ ] `effort` set (`low`/`medium`/`high`/`xhigh`/`max`)
 - [ ] `isolation: worktree` set for any agent that may run in parallel with other writers
 - [ ] `memory: project` only on agents that genuinely persist learnings across sessions
-- [ ] No `hooks`, `mcpServers`, or `permissionMode` if the agent ships in a plugin
+- [ ] `mcpServers` declared only when the agent genuinely requires a specific server (and documented in prose)
+- [ ] `hooks` / `permissionMode` declared only with a clear plugin-side justification
 
 ### Prompt
 

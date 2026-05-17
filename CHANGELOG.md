@@ -62,7 +62,7 @@ Three existing agents narrowed in scope to delegate specialized work to the new 
 ### Documentation
 
 #### docs/best-practices-agent-creation.md
-- §2 Frontmatter Design: rewrite with all 16 official frontmatter fields, grouped by purpose (Identity, Tools, Model & Effort, Permissions & Isolation, Context & Memory, Lifecycle); plugin-agent restrictions documented (`hooks`, `mcpServers`, `permissionMode` not allowed)
+- §2 Frontmatter Design: rewrite with all 16 official frontmatter fields, grouped by purpose (Identity, Tools, Model & Effort, Permissions & Isolation, Context & Memory, Lifecycle); plugin-agent considerations documented for `mcpServers`, `hooks`, and `permissionMode` (all valid, used with care)
 - §4 Context Engineering: added Tool Clearing, Compaction, Memory tool, Context Rot
 - §5 Workflow Design: replaced "MCP if available" guidance with `mcpServers` field guidance for non-plugin agents; added Hooks-as-Gates, Worktree Isolation, Background Subagents
 - §6 Anti-Patterns: added subagent-nesting, redundant personas, project-MCP-bloat, parallel-writer-races
