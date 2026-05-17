@@ -47,6 +47,7 @@ The specialist does not know about `.agent-context/` — you must provide contex
 | `architect`     | layer2 (conventions), decisions.json (existing ADRs)              |
 | `review`        | layer2 (coding conventions)                                       |
 | `security`      | layer2 (security policy), decisions.json (auth/crypto choices)    |
+| `incident`      | layer1 (service inventory, runtime topology), layer2 (runbook conventions, severity criteria) |
 | `concept`       | layer1 (stack), decisions.json (constraints)                      |
 | `discovery`     | layer1 (stack) — optional                                         |
 | `chrome`        | layer1 (local domains/ports)                                      |

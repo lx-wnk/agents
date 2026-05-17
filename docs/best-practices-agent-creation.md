@@ -456,6 +456,7 @@ These agents have overlapping scopes — use this matrix to route correctly.
 | `discovery` | What does this codebase do? | Codebase map | Don't use for reviewing specific changes — use for onboarding and orientation |
 | `performance` | Where is the bottleneck? | Profiling report with measurements | Don't use without a measurable problem — start with `analysis` |
 | `accessibility` | Does this work for all users? | WCAG audit with SC references | Don't use for general UI work — that is `frontend` |
+| `incident` | How do we restore production now? | Triage + timeline + ranked mitigation options + postmortem stub | Don't use for offline bug investigation — that is `debug` |
 
 ### Write-capable / Implementation
 
@@ -481,6 +482,7 @@ These agents have overlapping scopes — use this matrix to route correctly.
 - **Need a schema change** → `database`
 - **Need WCAG conformance** → `accessibility`
 - **Need to ship it** → `devops`
+- **Need to restore production now** → `incident`
 
 A typical implementation flow: `discovery` → `analysis` → `architect` → `backend`/`frontend` (+ `database`/`devops` as needed) → `testing` → `review` (+ `security`/`accessibility`/`performance` for deep audits when warranted).
 
