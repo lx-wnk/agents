@@ -1,6 +1,5 @@
 {
     "name": "agents",
-    "version": "1.0.0",
     "description": "Specialist sub-agents for AI-assisted development.",
     "author": {
         "name": "Alexander Wink",
