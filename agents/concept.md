@@ -3,7 +3,7 @@ name: concept
 version: 1.0.0
 description: "Concept and planning specialist. Delegates here for technical concepts, effort estimates, user stories, specifications, requirements analysis, and project planning. Use when planning features or projects, evaluating approaches, or creating structured proposals before implementation."
 tools: Read, Glob, Grep, Bash, Write, WebFetch, WebSearch
-model: sonnet
+model: sonnet  # structured planning prose
 maxTurns: 25
 effort: high
 ---

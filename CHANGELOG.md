@@ -6,6 +6,45 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.3.0] — 2026-06-23
+
+### Added
+
+- Plugin grouping: 4 opt-in subset plugins (`agents-core`, `agents-web`,
+  `agents-ops`, `agents-quality`) in `marketplace.json` alongside the full
+  `agents` bundle, via `strict: false` marketplace entries with `source: "./"`
+  and explicit `agents:` arrays. Existing `agents:<name>` subagent types
+  unchanged.
+- Plugin-level hooks (`hooks/hooks.json` + `hooks/deny-write-bash.sh`,
+  `hooks/recommend-verifier.sh`): a `PreToolUse` hook enforces
+  read-only-by-capability for `review`/`security`/`analysis`/`research` (blocks
+  write-shaped Bash, scoped via the `agent_type` field); a `SubagentStop` hook
+  injects a verifier-not-author reminder when a write-capable agent finishes.
+
+### Changed
+
+- Model tiering: `docs` sonnet→haiku, `performance` opus→sonnet, `refactor`
+  opus→sonnet (versions bumped to 1.1.0). All 19 agents now carry a one-line
+  YAML rationale comment after `model:`. Opus retained for `architect`,
+  `review`, `security`, `incident`, `debug`.
+- Read-only agents `review` (→1.2.0), `security`/`analysis`/`research`
+  (→1.1.0): added an explicit read-only Bash rule documenting the hook gate.
+- `marketplace.json`: removed the pinned `version` from plugin entries so the
+  git-SHA cache key drives updates (completing the intent of #5, which only
+  removed it from `plugin.json`). Marketplace catalog version → 1.1.0.
+- persist-block schema hardened: `memory-update.file` constrained to the
+  `memory/` or `docs/` subtree, `.md`/`.json` only, no path traversal; added
+  length bounds on all fields.
+
+### Fixed
+
+- Documentation: corrected the best-practices guide — `hooks`, `mcpServers`,
+  and `permissionMode` are ignored for plugin-shipped agents (prior text
+  wrongly claimed `mcpServers`/`hooks` were supported). `chrome.md` notes the
+  `mcpServers` caveat.
+
+---
+
 ## [1.2.0] — 2026-05-17
 
 ### Added — `incident` agent

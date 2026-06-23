@@ -3,7 +3,7 @@ name: debug
 version: 1.0.0
 description: "Debugging specialist. Delegates here for investigating bugs, fixing test failures, analyzing error logs, and root cause analysis. Use when something is broken, tests fail unexpectedly, or error behavior needs systematic investigation."
 tools: Read, Write, Edit, Glob, Grep, Bash
-model: opus
+model: opus  # root-cause reasoning; wrong fixes are expensive
 maxTurns: 40
 effort: xhigh
 memory: project

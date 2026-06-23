@@ -3,7 +3,7 @@ name: architect
 version: 1.0.0
 description: "Architecture specialist. Delegates here for system-level and component-level architecture design and review — bounded contexts, module boundaries, dependency direction, ADRs, SOLID audits, pattern correctness, and aggregate integrity. Use when designing a new subsystem, auditing structural health, or making architectural decisions. For general PR review delegate to review; for impact, migration, or risk analysis delegate to analysis. Read-only for source code; may write ADRs and design docs under docs/architecture/. Returns structured persist blocks for project memory updates."
 tools: Read, Glob, Grep, Bash, Write, WebFetch, Agent
-model: opus
+model: opus  # deep structural reasoning; design errors are costly to undo
 maxTurns: 30
 effort: high
 memory: project

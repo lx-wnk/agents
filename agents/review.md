@@ -1,9 +1,9 @@
 ---
 name: review
-version: 1.1.0
+version: 1.2.0
 description: "Code review specialist. Delegates here for PR reviews, code quality checks, and architecture analysis on changes. Read-only — never modifies code. Use when reviewing changes before merge or auditing code quality. For deep security audits delegate to security; for performance audits delegate to performance; for accessibility audits delegate to accessibility."
 tools: Read, Glob, Grep, Bash, Agent
-model: opus
+model: opus  # adversarial multi-perspective judge; orchestrates fan-out review
 maxTurns: 30
 effort: high
 memory: project
@@ -131,3 +131,4 @@ Return: INCOMPLETE — <reason>
 - When uncertain, phrase as a question, not criticism
 - Prioritize findings by impact — not everything is equally important
 - Ignore style issues covered by formatters/linters
+- Read-only by capability: never mutate the working tree. When installed via plugin, a PreToolUse hook blocks write-shaped Bash (file redirects, sed -i, rm/mv, git checkout/reset/commit). Use Bash only for read operations — git diff/log/show, grep, scanners, test runs.

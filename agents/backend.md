@@ -3,7 +3,7 @@ name: backend
 version: 1.1.0
 description: "Backend development specialist. Delegates here for server-side development, APIs, business logic, service architecture, and message queues. Use when implementing endpoints, writing business logic, or working with backend frameworks (PHP, Python, Node.js, Go, Rust, Java). For schema design, migrations, indexing, and query optimization delegate to database."
 tools: Read, Write, Edit, Glob, Grep, Bash, WebFetch
-model: sonnet
+model: sonnet  # well-defined server-side code generation
 maxTurns: 30
 effort: high
 memory: project

@@ -1,30 +1,37 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "PersistBlock",
-  "description": "Typed persist block returned by write-capable agents for project memory updates",
+  "description": "Typed persist block returned by write-capable agents for project memory updates. Agents never write project files directly — they emit a validated persist block and the orchestrator applies it. Allowed target paths are constrained so a block can be applied without path-traversal or arbitrary-write risk.",
   "oneOf": [
     {
       "type": "object",
+      "description": "Architecture Decision Record. The orchestrator appends it to the project's decision log (e.g. .agent-context/decisions.json).",
       "required": ["schemaVersion", "type", "title", "context", "decision", "consequences"],
       "additionalProperties": false,
       "properties": {
         "schemaVersion": { "const": 1, "description": "Schema version — always 1" },
         "type": { "const": "adr", "description": "Architecture Decision Record" },
-        "title": { "type": "string", "description": "Short, slug-friendly decision title" },
-        "context": { "type": "string", "description": "Situation and why this decision was needed" },
-        "decision": { "type": "string", "description": "What was decided" },
-        "consequences": { "type": "string", "description": "Positive and negative trade-offs" }
+        "title": { "type": "string", "minLength": 3, "maxLength": 120, "description": "Short decision title" },
+        "context": { "type": "string", "minLength": 1, "maxLength": 4000, "description": "Situation and why this decision was needed" },
+        "decision": { "type": "string", "minLength": 1, "maxLength": 4000, "description": "What was decided" },
+        "consequences": { "type": "string", "minLength": 1, "maxLength": 4000, "description": "Positive and negative trade-offs" }
       }
     },
     {
       "type": "object",
+      "description": "Append content to a project memory file. The target path is restricted to the memory/ or docs/ subtree and to .md/.json files; path traversal (..) and dotfiles are rejected by the pattern.",
       "required": ["schemaVersion", "type", "file", "content"],
       "additionalProperties": false,
       "properties": {
         "schemaVersion": { "const": 1, "description": "Schema version — always 1" },
         "type": { "const": "memory-update", "description": "Append content to a project memory file" },
-        "file": { "type": "string", "description": "Relative path to the memory file (e.g. memory/lessons.md)" },
-        "content": { "type": "string", "description": "Content to append to the memory file" }
+        "file": {
+          "type": "string",
+          "pattern": "^(memory|docs)/([A-Za-z0-9_-]+/)*[A-Za-z0-9_-]+\\.(md|json)$",
+          "maxLength": 256,
+          "description": "Relative target path under memory/ or docs/, ending in .md or .json. Examples: memory/lessons.md, docs/architecture/notes.md. Path segments are limited to [A-Za-z0-9_-]; .. traversal and absolute paths are not allowed."
+        },
+        "content": { "type": "string", "minLength": 1, "maxLength": 10000, "description": "Content to append to the memory file" }
       }
     }
   ]

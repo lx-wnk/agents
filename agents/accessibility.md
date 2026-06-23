@@ -3,7 +3,7 @@ name: accessibility
 version: 1.0.0
 description: "Accessibility specialist. Delegates here for WCAG audits, ARIA review, keyboard navigation, screen reader compatibility, and inclusive design fixes. Use when auditing UI for accessibility, fixing a11y findings, or designing accessible components. For general UI implementation delegate to frontend; for visual testing delegate to chrome."
 tools: Read, Edit, Glob, Grep, Bash, WebFetch
-model: sonnet
+model: sonnet  # WCAG audit and remediation
 maxTurns: 25
 effort: high
 memory: project

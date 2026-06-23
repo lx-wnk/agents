@@ -3,7 +3,7 @@ name: incident
 version: 1.0.0
 description: "Production incident responder. Delegates here for live incident triage, log and metric investigation, timeline reconstruction, mitigation strategy, and postmortem support. Read-only — never mutates production state. Use when a production system is degraded or down, an alert needs investigation, or a postmortem needs structuring. For root-cause fixing in code delegate to debug; for re-deployment or rollback execution delegate to devops."
 tools: Read, Glob, Grep, Bash, WebFetch, Agent
-model: opus
+model: opus  # high-stakes triage under uncertainty
 maxTurns: 30
 effort: xhigh
 memory: project

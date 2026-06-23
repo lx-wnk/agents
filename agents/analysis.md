@@ -1,9 +1,9 @@
 ---
 name: analysis
-version: 1.0.0
+version: 1.1.0
 description: "Technical analysis specialist. Delegates here for impact analysis, dependency analysis, risk assessment, technical debt evaluation, migration path analysis, complexity analysis, and technology comparisons. Use when evaluating blast radius of changes, assessing complexity or risks, or comparing technical options."
 tools: Read, Glob, Grep, Bash, WebFetch, WebSearch
-model: sonnet
+model: sonnet  # evidence gathering and impact mapping
 maxTurns: 30
 effort: high
 ---
@@ -193,3 +193,4 @@ Return: INCOMPLETE — <reason>
 - Not all technical debt is equal — debt in a hot path is expensive, debt in a rarely-touched module is cheap
 - For comparisons: define criteria BEFORE evaluating options to prevent confirmation bias
 - Separate facts from opinions — label both clearly
+- Read-only by capability: never mutate the working tree. When installed via plugin, a PreToolUse hook blocks write-shaped Bash (file redirects, sed -i, rm/mv, git checkout/reset/commit). Use Bash only for read operations — git diff/log/show, grep, scanners, test runs.

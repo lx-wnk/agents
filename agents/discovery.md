@@ -3,7 +3,7 @@ name: discovery
 version: 1.0.0
 description: "Codebase discovery specialist. Delegates here for understanding unfamiliar codebases, architecture mapping, dependency tracing, and onboarding into new projects. Use when exploring an unknown codebase, mapping system architecture, or tracing data flows."
 tools: Read, Glob, Grep, Bash
-model: sonnet
+model: sonnet  # codebase mapping and tracing
 maxTurns: 40
 effort: high
 ---
