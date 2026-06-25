@@ -1,5 +1,7 @@
 # AC Agents
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Release](https://img.shields.io/github/v/release/lx-wnk/agents)](https://github.com/lx-wnk/agents/releases) [![Claude Code Plugin](https://img.shields.io/badge/Claude%20Code-Plugin-7c3aed)](https://github.com/lx-wnk/agents)
+
 Specialist sub-agents for AI-assisted development, packaged as a Claude Code Plugin.
 
 ## Agents
