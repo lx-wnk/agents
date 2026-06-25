@@ -1,0 +1,57 @@
+name: Bug report
+description: Report a problem with an agent, plugin group, or hook.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. Please fill in the fields below so the issue can be reproduced.
+  - type: input
+    id: agent
+    attributes:
+      label: Affected agent or plugin
+      description: Which agent (e.g. `review`) or group plugin (e.g. `agents-quality`) is involved?
+      placeholder: "agents:review"
+    validations:
+      required: true
+  - type: input
+    id: cc-version
+    attributes:
+      label: Claude Code version
+      description: Output of `claude --version`.
+      placeholder: "x.y.z"
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: Describe the actual behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+      description: Describe the expected behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Minimal steps, including the delegating prompt or task if relevant.
+      placeholder: |
+        1. Install with `claude plugin install agents@lx-wnk`
+        2. Delegate to ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: textarea
+    id: validate-output
+    attributes:
+      label: "`claude plugin validate .` output"
+      description: Paste the output if the issue relates to plugin loading or validation.
+      render: shell
+    validations:
+      required: false

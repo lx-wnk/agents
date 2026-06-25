@@ -1,0 +1,60 @@
+name: Agent proposal
+description: Propose a new specialist agent or a scope change to an existing one.
+labels: [agent-proposal]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Each agent solves exactly one clearly defined task. Read the disambiguation
+        matrix in `docs/best-practices-agent-creation.md` (§10) before proposing — most
+        gaps are already covered by an existing specialist.
+  - type: input
+    id: name
+    attributes:
+      label: Proposed agent name
+      description: Short, lowercase, single word where possible (e.g. `migration`).
+      placeholder: "migration"
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: One-task scope
+      description: The single, clearly defined task this agent owns. One sentence.
+    validations:
+      required: true
+  - type: textarea
+    id: gap
+    attributes:
+      label: Why existing agents don't cover this
+      description: >
+        Reference the disambiguation matrix (§10). Name the agents that come closest and
+        explain why delegating to them would be wrong or ambiguous.
+    validations:
+      required: true
+  - type: input
+    id: tools
+    attributes:
+      label: Proposed tools
+      description: Least-privilege tool set. Read-only agents carry no `Write`/`Edit`.
+      placeholder: "Read, Glob, Grep, Bash"
+    validations:
+      required: true
+  - type: dropdown
+    id: model
+    attributes:
+      label: Proposed model tier
+      description: The weakest tier that reliably does the job. See §2 (Model Selection).
+      options:
+        - haiku
+        - sonnet
+        - opus
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional context
+      description: Anything else relevant — example delegating prompts, related agents.
+    validations:
+      required: false
