@@ -1,7 +1,7 @@
 {
     "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
     "name": "lx-wnk",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "Specialist sub-agents for AI-assisted development.",
     "owner": {
         "name": "Alexander Wink",
@@ -10,15 +10,94 @@
     "plugins": [
         {
             "name": "agents",
-            "description": "Specialist sub-agents for AI-assisted development, packaged as a Claude Code Plugin.",
+            "description": "All 19 specialist sub-agents for AI-assisted development (full bundle). Subagent types: agents:<name>.",
             "source": "./",
-            "version": "1.0.0",
             "author": {
                 "name": "Alexander Wink",
                 "email": "git@jinnoflife.com"
             },
             "category": "development",
-            "keywords": ["agents", "sub-agents", "development", "ai"]
+            "keywords": ["agents", "sub-agents", "development", "ai"],
+            "hooks": "./hooks/hooks.json"
+        },
+        {
+            "name": "agents-core",
+            "description": "Core engineering brain: discovery, analysis, architect, concept, research, docs, debug, refactor. Subagent types: agents-core:<name>.",
+            "source": "./",
+            "strict": false,
+            "author": {
+                "name": "Alexander Wink",
+                "email": "git@jinnoflife.com"
+            },
+            "category": "development",
+            "keywords": ["agents", "core", "architecture", "analysis"],
+            "agents": [
+                "./agents/discovery.md",
+                "./agents/analysis.md",
+                "./agents/architect.md",
+                "./agents/concept.md",
+                "./agents/research.md",
+                "./agents/docs.md",
+                "./agents/debug.md",
+                "./agents/refactor.md"
+            ],
+            "hooks": "./hooks/hooks.json"
+        },
+        {
+            "name": "agents-web",
+            "description": "Web and UI specialists: frontend, accessibility, chrome. Subagent types: agents-web:<name>.",
+            "source": "./",
+            "strict": false,
+            "author": {
+                "name": "Alexander Wink",
+                "email": "git@jinnoflife.com"
+            },
+            "category": "development",
+            "keywords": ["agents", "frontend", "accessibility", "web"],
+            "agents": [
+                "./agents/frontend.md",
+                "./agents/accessibility.md",
+                "./agents/chrome.md"
+            ],
+            "hooks": "./hooks/hooks.json"
+        },
+        {
+            "name": "agents-ops",
+            "description": "Build and run specialists: backend, database, devops, incident. Subagent types: agents-ops:<name>.",
+            "source": "./",
+            "strict": false,
+            "author": {
+                "name": "Alexander Wink",
+                "email": "git@jinnoflife.com"
+            },
+            "category": "development",
+            "keywords": ["agents", "backend", "devops", "database"],
+            "agents": [
+                "./agents/backend.md",
+                "./agents/database.md",
+                "./agents/devops.md",
+                "./agents/incident.md"
+            ],
+            "hooks": "./hooks/hooks.json"
+        },
+        {
+            "name": "agents-quality",
+            "description": "Verification specialists: review, security, testing, performance. Subagent types: agents-quality:<name>.",
+            "source": "./",
+            "strict": false,
+            "author": {
+                "name": "Alexander Wink",
+                "email": "git@jinnoflife.com"
+            },
+            "category": "development",
+            "keywords": ["agents", "review", "security", "testing"],
+            "agents": [
+                "./agents/review.md",
+                "./agents/security.md",
+                "./agents/testing.md",
+                "./agents/performance.md"
+            ],
+            "hooks": "./hooks/hooks.json"
         }
     ]
 }

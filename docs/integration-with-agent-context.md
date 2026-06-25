@@ -88,6 +88,59 @@ persist:
 **Handling it in Agent-Context:**
 Append the content to the specified memory file under `.agent-context/`.
 
+### Schema and Allowed Paths
+
+All persist blocks are validated against [`schemas/persist-block.schema.json`](../schemas/persist-block.schema.json) (JSON Schema draft-07). Two block types exist: `adr` and `memory-update`. The orchestrator MUST reject any block that fails schema validation rather than applying it.
+
+**`adr` fields:**
+
+| Field | Type | Constraints |
+| ----- | ---- | ----------- |
+| `schemaVersion` | integer | const `1` |
+| `type` | string | const `"adr"` |
+| `title` | string | 3–120 characters |
+| `context` | string | why this decision was needed |
+| `decision` | string | what was decided |
+| `consequences` | string | trade-offs |
+
+All fields required; no additional properties allowed.
+
+**`memory-update` fields:**
+
+| Field | Type | Constraints |
+| ----- | ---- | ----------- |
+| `schemaVersion` | integer | const `1` |
+| `type` | string | const `"memory-update"` |
+| `file` | string | target path — see allowed paths below |
+| `content` | string | 1–10000 characters |
+
+All fields required; no additional properties allowed.
+
+**Allowed target paths for `memory-update.file`** — IMPORTANT:
+
+The `file` value must match the pattern:
+
+```
+^(memory|docs)/([A-Za-z0-9_-]+/)*[A-Za-z0-9_-]+\.(md|json)$
+```
+
+This means:
+- A relative path under `memory/` or `docs/` only
+- Ending in `.md` or `.json`
+- Path segments limited to letters, digits, underscore, and hyphen
+
+Absolute paths, `..` traversal, dotfiles, and other extensions are rejected. The orchestrator MUST validate the path before applying a block, and treat it as relative to the project root (or `.agent-context/` per local convention).
+
+## Verifier Protocol
+
+**Hard rule:** the agent that VERIFIES a change must never be the agent that PRODUCED it (fresh-eyes). Route verification to a read-only agent — `review` for general changes, `security` when auth, crypto, secrets, or dependencies were touched.
+
+**Mechanism:** the plugin ships a `SubagentStop` hook ([`hooks/recommend-verifier.sh`](../hooks/recommend-verifier.sh)) that injects an `additionalContext` reminder when a write-capable agent (`backend`, `frontend`, `database`, `refactor`, `devops`, `debug`, `accessibility`, `chrome`, `testing`) finishes, telling the orchestrator to dispatch an independent reviewer before merge.
+
+Plugin-shipped agents cannot carry `hooks:` in their own frontmatter (ignored for security), which is why this gate lives at plugin level in `hooks/hooks.json`, scoped via the `agent_type` field present in the hook payload.
+
+The read-only agents (`review`, `security`, `analysis`, `research`) are themselves enforced read-only by a companion `PreToolUse` hook ([`hooks/deny-write-bash.sh`](../hooks/deny-write-bash.sh)) that blocks write-shaped Bash for those agent types.
+
 ## Layer 0 Integration
 
 In the Agent-Context repo, [`context/layer0-agent-workflow.md`](https://github.com/lx-wnk/Agent-Context/blob/main/context/layer0-agent-workflow.md) — "Delegating to Specialist Agents" section — describes the full protocol for injecting context and consuming persist blocks. Agents installed via the `agents@lx-wnk` plugin are available as subagent types matching the `name:` field in each agent's YAML frontmatter.

@@ -93,9 +93,10 @@ Use `disallowedTools` for read-mostly agents that need many MCP tools — listin
 
 All 16 frontmatter fields are technically valid for plugin-distributed agents, but they differ in how cleanly they compose with the user's environment:
 
-- **`mcpServers` is fully supported and recommended** when the agent depends on a specific MCP server. See `agents/chrome.md` for a reference using `claude-in-chrome`. Document the required server in the agent's prose section too, so users know what to install.
-- **`hooks`** are user-environment configuration in spirit. Declare them in a plugin agent only when the lifecycle gate is intrinsic to the agent's contract (e.g., a `Stop` hook that the agent itself depends on). For project-wide gates (format-on-save, secret-scan), keep them in the user's `.claude/settings.json`.
-- **`permissionMode`** changes the user's permission UX. Use sparingly and only with a clear justification — auto-approving edits in a plugin agent can surprise users.
+- **`hooks`, `mcpServers`, and `permissionMode` are ignored for plugin-shipped agents** — a security restriction in current Claude Code (see the [subagents reference](https://code.claude.com/docs/en/sub-agents#choose-the-subagent-scope) and [plugins reference](https://code.claude.com/docs/en/plugins-reference#agents)). These fields silently have no effect when the agent loads from a plugin. The supported levers and workarounds:
+  - **Required MCP server** (e.g. `chrome` → `claude-in-chrome`): document it in the agent's prose and have the orchestrator/user provide the server at session level. The `mcpServers:` frontmatter field still applies on the non-plugin path (the agent file copied into `.claude/agents/`), so keep it for that case but do not depend on it in plugin distribution.
+  - **Lifecycle gate** (block write-shaped Bash on a read-only agent; run a verifier when a write-agent finishes): ship it at **plugin level** via a `hooks/hooks.json` referenced from the manifest, and scope it by inspecting the `agent_type` field that the hook receives. See `hooks/` in this repo: `deny-write-bash.sh` (PreToolUse read-only gate) and `recommend-verifier.sh` (SubagentStop verifier reminder).
+  - **Per-agent permission tuning**: prefer the `tools` allowlist (which IS honored for plugin agents) over `permissionMode`. To make a read-only agent read-only *by capability* rather than convention, drop write tools from `tools` and gate `Bash` with the plugin-level hook above.
 
 ### Description Design
 
@@ -128,6 +129,8 @@ Patterns for good descriptions:
 | `haiku`  | Quick read-only tasks, classification, simple lookups                       | Very fast, very affordable  |
 
 Rule of thumb: Choose the weakest model that reliably fulfills the task.
+
+Keep the tiering rationale documented centrally — here and in the `CHANGELOG` — rather than as a per-agent frontmatter comment, so it stays single-sourced and cannot drift across 19 files. Current tiers in this repo: `opus` for deep-reasoning roles (architect, review, security, incident, debug), `haiku` for light prose (docs), `sonnet` for the well-defined build and analysis roles. Resist reflexively assigning `opus` to a role just because it feels important — measurement-driven roles (performance) and behavior-preserving roles (refactor) run fine on `sonnet`.
 
 ### Tool Minimization
 
@@ -229,6 +232,10 @@ Do not load everything upfront. Fetch specialized context files (e.g., `memory/a
 ### Tool Clearing
 
 Tool descriptions are tokens too. An agent that loads 30 MCP tools at startup pays for all of them on every turn. Use `tools` / `disallowedTools` to scope down, and prefer agent-scoped `mcpServers` over project-level `.mcp.json` for tools that only one agent needs.
+
+### Plugin Grouping (Description Footprint)
+
+Every installed agent contributes its `description` to the routing context each session. A 19-agent bundle is 19 description blocks the orchestrator pays for on every turn — a fixed context tax before any work begins. To bound it, this marketplace ships the full `agents` bundle plus four opt-in subset plugins — `agents-core`, `agents-web`, `agents-ops`, `agents-quality` — each exposing only its slice via the marketplace entry's `agents:` array (`strict: false`, `source: "./"`, one shared repo, no file duplication). Users install only the groups they need. The subagent_type namespace is `<plugin>:<name>`, so `agents:frontend` (full bundle) and `agents-web:frontend` (web group) both resolve — existing names stay stable while the footprint becomes opt-in.
 
 ### Compaction & Memory
 
@@ -349,6 +356,8 @@ How agents compose into larger workflows. Pick the pattern that matches the task
 The orchestrator delegates to a **planner** (read-only, produces a step list), then to one or more **executors** (write-capable, do the work), then to a **verifier** (read-only, confirms outcome). Maps cleanly onto our `discovery` / `architect` → `backend`/`frontend` → `review` chain.
 
 Use when: changes are non-trivial and a wrong plan is expensive to undo.
+
+**Hard rule — the verifier is never the author.** The agent that verifies a change must not be the agent that produced it. Fresh-eyes verification is the entire point: a write-agent reviewing its own diff inherits its own blind spots. Route verification to a read-only agent (`review`, or `security` for auth/crypto/secret/dependency changes) that did not write the code. This repo enforces the rule mechanically — a plugin-level `SubagentStop` hook (`hooks/recommend-verifier.sh`) injects a reminder to dispatch an independent reviewer whenever a write-capable agent finishes.
 
 ### Evaluator-Optimizer (judge loop)
 

@@ -20,6 +20,8 @@ Chrome browser automation specialist. You navigate websites, fill forms, take sc
 
 **Requirement:** This agent requires the `claude-in-chrome` MCP server. If unavailable, inform the user that browser automation is not possible without this extension and suggest alternative approaches (e.g., manual testing, Bash-based curl/wget for API checks).
 
+Note: when this agent runs from the installed plugin, the frontmatter mcpServers field is ignored — the claude-in-chrome MCP server must be available at session level (configured by the orchestrator or user). The field still applies when the agent file is copied into .claude/agents/.
+
 ## Core Principle
 
 **One action, one screenshot.** Capture evidence at every step — browser state is ephemeral and untestable after the session ends.

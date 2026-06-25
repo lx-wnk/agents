@@ -30,7 +30,7 @@ Specialist sub-agents for AI-assisted development, packaged as a Claude Code Plu
 
 **Zero coupling to `.agent-context/`** — Agents detect tech stack from project manifests and receive project context via the delegating prompt. They work in any project without requiring the Agent-Context framework.
 
-**Persist block protocol** — Write-coupled agents (`architect`, `docs`) return structured `persist:` blocks in their responses instead of writing directly to project files. The orchestrating agent decides where to persist the data.
+**Persist block protocol** — For project-memory and decision-log updates (ADRs, lessons), write-coupled agents (`architect`, `docs`) return structured `persist:` blocks instead of writing those memory files themselves, so the orchestrator decides where the data lands. Source code and ordinary docs are still written directly via the agents' Write/Edit tools — the protocol covers only memory artifacts. Persist blocks are validated against `schemas/persist-block.schema.json` (typed fields, allowed target paths under `memory/` or `docs/`, no path traversal).
 
 ## Installation
 
@@ -44,6 +44,29 @@ Once installed, agents are available as `subagent_type` in the `Agent` tool:
 ```
 subagent_type: "analysis"   # or backend, frontend, debug, etc.
 ```
+
+## Plugin Groups
+
+The full `agents` bundle ships all 19 specialists. Four opt-in subset plugins reduce the per-session description footprint — install only the groups you need rather than carrying all 19 descriptions in every session.
+
+The `subagent_type` namespace is `<plugin>:<name>`, so existing `agents:<name>` names stay stable; group plugins add parallel names like `agents-web:frontend`.
+
+| Plugin                 | Agents                                                            |
+| ---------------------- | ---------------------------------------------------------------- |
+| `agents` (full bundle) | all 19                                                            |
+| `agents-core`          | discovery, analysis, architect, concept, research, docs, debug, refactor |
+| `agents-web`           | frontend, accessibility, chrome                                  |
+| `agents-ops`           | backend, database, devops, incident                              |
+| `agents-quality`       | review, security, testing, performance                           |
+
+```bash
+claude plugin marketplace add https://github.com/lx-wnk/agents
+claude plugin install agents@lx-wnk          # full bundle
+claude plugin install agents-web@lx-wnk      # web specialists only
+claude plugin install agents-quality@lx-wnk  # verification specialists only
+```
+
+Read-only agents (`review`, `security`, `analysis`, `research`) are enforced read-only by a plugin-level `PreToolUse` hook that blocks write-shaped Bash. A `SubagentStop` hook reminds the orchestrator to dispatch an independent verifier — never the authoring agent — after a write-capable agent finishes.
 
 ## Usage with Agent-Context
 
