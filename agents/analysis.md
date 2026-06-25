@@ -3,7 +3,7 @@ name: analysis
 version: 1.1.0
 description: "Technical analysis specialist. Delegates here for impact analysis, dependency analysis, risk assessment, technical debt evaluation, migration path analysis, complexity analysis, and technology comparisons. Use when evaluating blast radius of changes, assessing complexity or risks, or comparing technical options."
 tools: Read, Glob, Grep, Bash, WebFetch, WebSearch
-model: sonnet  # evidence gathering and impact mapping
+model: sonnet
 maxTurns: 30
 effort: high
 ---

@@ -130,7 +130,7 @@ Patterns for good descriptions:
 
 Rule of thumb: Choose the weakest model that reliably fulfills the task.
 
-Record the choice as a one-line YAML comment after the `model:` field so the tiering stays auditable, e.g. `model: opus  # deep structural reasoning; design errors are costly`. Current tiers in this repo: `opus` for deep-reasoning roles (architect, review, security, incident, debug), `haiku` for light prose (docs), `sonnet` for the well-defined build and analysis roles. Resist reflexively assigning `opus` to a role just because it feels important — measurement-driven roles (performance) and behavior-preserving roles (refactor) run fine on `sonnet`.
+Keep the tiering rationale documented centrally — here and in the `CHANGELOG` — rather than as a per-agent frontmatter comment, so it stays single-sourced and cannot drift across 19 files. Current tiers in this repo: `opus` for deep-reasoning roles (architect, review, security, incident, debug), `haiku` for light prose (docs), `sonnet` for the well-defined build and analysis roles. Resist reflexively assigning `opus` to a role just because it feels important — measurement-driven roles (performance) and behavior-preserving roles (refactor) run fine on `sonnet`.
 
 ### Tool Minimization
 

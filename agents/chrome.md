@@ -3,7 +3,7 @@ name: chrome
 version: 1.0.0
 description: "Chrome browser automation specialist. Delegates here for web testing, form filling, screenshot capture, navigation, visual regression testing, and GIF recording. Use when verifying UI behavior, capturing visual evidence, or testing browser-based flows."
 tools: Read, Glob, Grep, Bash, Write
-model: sonnet  # deterministic browser automation
+model: sonnet
 mcpServers:
   - claude-in-chrome
 maxTurns: 30

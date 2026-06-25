@@ -24,9 +24,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Model tiering: `docs` sonnet→haiku, `performance` opus→sonnet, `refactor`
-  opus→sonnet (versions bumped to 1.1.0). All 19 agents now carry a one-line
-  YAML rationale comment after `model:`. Opus retained for `architect`,
-  `review`, `security`, `incident`, `debug`.
+  opus→sonnet (versions bumped to 1.1.0). Opus retained for `architect`,
+  `review`, `security`, `incident`, `debug`. Tiering rationale is documented
+  centrally in `docs/best-practices-agent-creation.md` (§ Model Selection),
+  not as per-agent frontmatter comments.
 - Read-only agents `review` (→1.2.0), `security`/`analysis`/`research`
   (→1.1.0): added an explicit read-only Bash rule documenting the hook gate.
 - `marketplace.json`: removed the pinned `version` from plugin entries so the

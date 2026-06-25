@@ -3,7 +3,7 @@ name: frontend
 version: 1.1.0
 description: "Frontend development specialist. Delegates here for HTML, CSS, JavaScript, TypeScript, React, Vue, Angular, Svelte, component building, responsive design, and design-to-code tasks. Use when building UI components, implementing designs, or fixing frontend styling and behavior. For dedicated WCAG audits, ARIA review, or screen-reader testing delegate to accessibility."
 tools: Read, Write, Edit, Glob, Grep, Bash, WebFetch
-model: sonnet  # component code generation from clear specs
+model: sonnet
 maxTurns: 30
 effort: high
 ---

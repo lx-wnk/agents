@@ -3,7 +3,7 @@ name: performance
 version: 1.1.0
 description: "Performance analysis specialist. Delegates here for performance audits, profiling, bottleneck analysis, database query optimization, and Core Web Vitals. Use when response times are too slow, resources are saturated, or systematic performance measurement is needed."
 tools: Read, Glob, Grep, Bash, WebFetch, WebSearch
-model: sonnet  # measurement-driven; reasoning is light once data is gathered
+model: sonnet
 maxTurns: 40
 effort: xhigh
 ---

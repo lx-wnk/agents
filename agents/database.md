@@ -3,7 +3,7 @@ name: database
 version: 1.0.0
 description: "Database specialist. Delegates here for schema design, migrations, indexing, query optimization, and data-model evolution. Use when adding or altering database schemas, writing migrations, optimizing slow queries, or designing data models. For application business logic delegate to backend; for runtime profiling delegate to performance."
 tools: Read, Write, Edit, Glob, Grep, Bash, WebFetch
-model: sonnet  # schema and migration code generation, bounded scope
+model: sonnet
 maxTurns: 30
 effort: high
 memory: project

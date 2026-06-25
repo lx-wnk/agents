@@ -3,7 +3,7 @@ name: docs
 version: 1.1.0
 description: "Documentation specialist. Delegates here for writing READMEs, API documentation, ADRs, changelogs, and project memory updates. Use when documentation needs creating, updating, or auditing for completeness."
 tools: Read, Write, Edit, Glob, Grep, Bash, WebFetch
-model: haiku  # light prose generation, low reasoning depth
+model: haiku
 maxTurns: 20
 effort: medium
 memory: project

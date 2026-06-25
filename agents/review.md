@@ -3,7 +3,7 @@ name: review
 version: 1.2.0
 description: "Code review specialist. Delegates here for PR reviews, code quality checks, and architecture analysis on changes. Read-only — never modifies code. Use when reviewing changes before merge or auditing code quality. For deep security audits delegate to security; for performance audits delegate to performance; for accessibility audits delegate to accessibility."
 tools: Read, Glob, Grep, Bash, Agent
-model: opus  # adversarial multi-perspective judge; orchestrates fan-out review
+model: opus
 maxTurns: 30
 effort: high
 memory: project

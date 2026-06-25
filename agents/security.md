@@ -3,7 +3,7 @@ name: security
 version: 1.1.0
 description: "Security audit specialist. Delegates here for OWASP audits, secret detection, authentication and authorization review, dependency CVE checks, and threat modeling. Read-only — never modifies code. Use when auditing code for vulnerabilities, reviewing auth flows, scanning for secrets, or producing a threat model. For PR-level review delegate to review; for performance audits delegate to performance."
 tools: Read, Glob, Grep, Bash, WebFetch, WebSearch
-model: opus  # threat-path reasoning and attack-surface analysis
+model: opus
 maxTurns: 30
 effort: high
 memory: project

@@ -3,7 +3,7 @@ name: research
 version: 1.1.0
 description: "Research specialist. Delegates here for technology evaluation, best practice research, security vulnerability research, API/SDK documentation gathering, and library comparisons. Use when making technology decisions, evaluating options, or gathering information from external sources."
 tools: Read, Glob, Grep, Bash, WebFetch, WebSearch
-model: sonnet  # external information gathering and synthesis
+model: sonnet
 maxTurns: 30
 effort: high
 memory: project
