@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "PersistBlock",
-  "description": "Typed persist block returned by write-capable agents for project memory updates. Agents never write project files directly — they emit a validated persist block and the orchestrator applies it. Allowed target paths are constrained so a block can be applied without path-traversal or arbitrary-write risk.",
+  "description": "Typed persist block for project-memory and decision-log updates. This is separate from source-code editing: code-writing agents (backend, frontend, database, refactor, etc.) modify source files directly via their Write/Edit tools. The persist protocol covers only memory and decision artifacts (e.g. ADRs, lessons), which write-coupled agents (architect, docs) emit instead of writing those files themselves, so the orchestrator controls where project memory lands. Allowed target paths are constrained so a block can be applied without path-traversal or arbitrary-write risk.",
   "oneOf": [
     {
       "type": "object",

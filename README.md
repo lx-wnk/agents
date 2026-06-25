@@ -30,7 +30,7 @@ Specialist sub-agents for AI-assisted development, packaged as a Claude Code Plu
 
 **Zero coupling to `.agent-context/`** — Agents detect tech stack from project manifests and receive project context via the delegating prompt. They work in any project without requiring the Agent-Context framework.
 
-**Persist block protocol** — Write-coupled agents (`architect`, `docs`) return structured `persist:` blocks in their responses instead of writing directly to project files. The orchestrating agent decides where to persist the data. Persist blocks are validated against `schemas/persist-block.schema.json` (typed fields, allowed target paths under `memory/` or `docs/`, no path traversal).
+**Persist block protocol** — For project-memory and decision-log updates (ADRs, lessons), write-coupled agents (`architect`, `docs`) return structured `persist:` blocks instead of writing those memory files themselves, so the orchestrator decides where the data lands. Source code and ordinary docs are still written directly via the agents' Write/Edit tools — the protocol covers only memory artifacts. Persist blocks are validated against `schemas/persist-block.schema.json` (typed fields, allowed target paths under `memory/` or `docs/`, no path traversal).
 
 ## Installation
 
