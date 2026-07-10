@@ -1,2 +1,3 @@
 /docs/local/*
 /.claude/
+.DS_Store

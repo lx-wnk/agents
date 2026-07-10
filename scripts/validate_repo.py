@@ -25,6 +25,7 @@ MARKETPLACE = REPO / ".claude-plugin" / "marketplace.json"
 PLUGIN = REPO / ".claude-plugin" / "plugin.json"
 README = REPO / "README.md"
 CHANGELOG = REPO / "CHANGELOG.md"
+BEST_PRACTICES = REPO / "docs" / "best-practices-agent-creation.md"
 PERSIST_SCHEMA = REPO / "schemas" / "persist-block.schema.json"
 
 ALLOWED_MODELS = {"fable", "opus", "sonnet", "haiku", "inherit"}
@@ -110,12 +111,24 @@ if marketplace:
         if m and int(m.group(1)) != count:
             fail(f"marketplace 'agents' description: 'All {m.group(1)}' != actual count {count}")
 
-# --- 4. marketplace agents: paths exist ------------------------------------
+# --- 4. marketplace agents: paths exist + no agent in two groups -----------
+grouped: dict[str, str] = {}
 if marketplace:
     for plugin in marketplace.get("plugins", []):
         for rel in plugin.get("agents", []):
             if not (REPO / rel).exists():
                 fail(f"marketplace plugin '{plugin.get('name')}': missing agents path {rel}")
+            stem = Path(rel).stem
+            if stem in grouped:
+                fail(f"agent '{stem}' is in two groups: {grouped[stem]} and {plugin.get('name')}")
+            else:
+                grouped[stem] = plugin.get("name")
+
+# --- 4b. docs bundle-count line matches the roster -------------------------
+if BEST_PRACTICES.exists():
+    for m in re.finditer(r"(\d+)-agent bundle", BEST_PRACTICES.read_text(encoding="utf-8")):
+        if int(m.group(1)) != count:
+            fail(f"best-practices: '{m.group(1)}-agent bundle' != actual count {count}")
 
 # --- 5. version sync: CHANGELOG header == marketplace version --------------
 cl_match = re.search(r"^## \[(\d+\.\d+\.\d+)\]", CHANGELOG.read_text(encoding="utf-8"), re.M)
