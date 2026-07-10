@@ -62,8 +62,8 @@ Use `disallowedTools` for read-mostly agents that need many MCP tools — listin
 
 | Field      | Description                                                                  |
 | ---------- | ---------------------------------------------------------------------------- |
-| `model`    | `opus` / `sonnet` / `haiku` / `inherit` (default). See table below           |
-| `effort`   | `low` / `medium` / `high` / `max` — token budget and reasoning depth. This repo also uses `xhigh` (between `high` and `max`) for deep-reasoning agents like `debug`, `performance`, `refactor` — repo convention, not an official spec value |
+| `model`    | `fable` / `opus` / `sonnet` / `haiku` / `inherit` (default). See table below  |
+| `effort`   | `low` / `medium` / `high` / `xhigh` / `max` — token budget and reasoning depth. This repo uses `xhigh` (between `high` and `max`) for deep-reasoning and coding/agentic roles (`debug`, `incident`, `performance`, `refactor`, `backend`, `frontend`, `database`, `devops`, `testing`); `xhigh` is Anthropic's recommended effort for coding/agentic work on the current models (Opus 4.8 / Sonnet 5) |
 | `maxTurns` | Realistic ceiling. Too high = runaway costs; too low = premature termination |
 
 #### Permissions & Isolation
@@ -124,13 +124,18 @@ Patterns for good descriptions:
 
 | Model    | When to use                                                                 | Cost/Speed                  |
 | -------- | --------------------------------------------------------------------------- | --------------------------- |
+| `fable`  | The hardest long-horizon / autonomous work where a wrong result is costly    | Slowest, premium (~2× opus) |
 | `opus`   | Complex reasoning, architecture decisions, multi-perspective analysis        | Slow, expensive             |
 | `sonnet` | Well-defined tasks, code generation, documentation                          | Fast, affordable            |
 | `haiku`  | Quick read-only tasks, classification, simple lookups                       | Very fast, very affordable  |
 
-Rule of thumb: Choose the weakest model that reliably fulfills the task.
+The `model` field takes a **tier alias**, not a dated model ID. Each alias resolves to the newest model in that family, so agents track model releases automatically without edits — as of this writing `fable`→Fable 5, `opus`→Opus 4.8, `sonnet`→Sonnet 5, `haiku`→Haiku 4.5. Prefer aliases over pinned IDs precisely so they never go stale.
 
-Keep the tiering rationale documented centrally — here and in the `CHANGELOG` — rather than as a per-agent frontmatter comment, so it stays single-sourced and cannot drift across 19 files. Current tiers in this repo: `opus` for deep-reasoning roles (architect, review, security, incident, debug), `haiku` for light prose (docs), `sonnet` for the well-defined build and analysis roles. Resist reflexively assigning `opus` to a role just because it feels important — measurement-driven roles (performance) and behavior-preserving roles (refactor) run fine on `sonnet`.
+Rule of thumb: Choose the weakest model that reliably fulfills the task. `fable` is a deliberate opt-in for the hardest roles only — do not reflexively raise agents to it; its premium pricing rarely pays off over `opus` for well-scoped work.
+
+Keep the tiering rationale documented centrally — here and in the `CHANGELOG` — rather than as a per-agent frontmatter comment, so it stays single-sourced and cannot drift across 20 files. Current tiers in this repo: `opus` for deep-reasoning roles (architect, review, security, incident, debug), `haiku` for light prose (docs), `sonnet` for the well-defined build and analysis roles. Resist reflexively assigning `opus` to a role just because it feels important — measurement-driven roles (performance) and behavior-preserving roles (refactor) run fine on `sonnet`. `fable` is reserved for the hardest roles as a documented opt-in and is not assigned by default in any agent.
+
+Effort tiers track the same single-source rule. The coding/agentic build roles (`backend`, `frontend`, `database`, `devops`, `testing`) run at `xhigh`, matching Anthropic's recommended effort for coding/agentic work on the current models; deep-reasoning roles (`debug`, `incident`, `performance`, `refactor`) also use `xhigh`. Reserve `max` for cases where correctness outweighs cost; keep read-mostly and prose roles at `high`/`medium`.
 
 ### Tool Minimization
 
@@ -235,7 +240,7 @@ Tool descriptions are tokens too. An agent that loads 30 MCP tools at startup pa
 
 ### Plugin Grouping (Description Footprint)
 
-Every installed agent contributes its `description` to the routing context each session. A 19-agent bundle is 19 description blocks the orchestrator pays for on every turn — a fixed context tax before any work begins. To bound it, this marketplace ships the full `agents` bundle plus four opt-in subset plugins — `agents-core`, `agents-web`, `agents-ops`, `agents-quality` — each exposing only its slice via the marketplace entry's `agents:` array (`strict: false`, `source: "./"`, one shared repo, no file duplication). Users install only the groups they need. The subagent_type namespace is `<plugin>:<name>`, so `agents:frontend` (full bundle) and `agents-web:frontend` (web group) both resolve — existing names stay stable while the footprint becomes opt-in.
+Every installed agent contributes its `description` to the routing context each session. A 20-agent bundle is 20 description blocks the orchestrator pays for on every turn — a fixed context tax before any work begins. To bound it, this marketplace ships the full `agents` bundle plus four opt-in subset plugins — `agents-core`, `agents-web`, `agents-ops`, `agents-quality` — each exposing only its slice via the marketplace entry's `agents:` array (`strict: false`, `source: "./"`, one shared repo, no file duplication). Users install only the groups they need. The subagent_type namespace is `<plugin>:<name>`, so `agents:frontend` (full bundle) and `agents-web:frontend` (web group) both resolve — existing names stay stable while the footprint becomes opt-in.
 
 ### Compaction & Memory
 
@@ -479,6 +484,7 @@ These agents have overlapping scopes — use this matrix to route correctly.
 | `testing` | Specify behavior with tests | Test files | Don't use for general implementation — tests are the artifact |
 | `debug` | Find and fix the root cause | Fix + regression test | Don't use for new features or refactors |
 | `docs` | Document what is not obvious from code | READMEs, ADRs, changelogs | Don't use for architectural decisions — use `architect` |
+| `agent-tooling` | Configure Claude Code itself | Subagents, skills, hooks, commands, plugin/marketplace manifests | Don't use for application code or prose docs — those are `backend`/`frontend` and `docs` |
 
 ### Decision Rules
 
@@ -492,6 +498,7 @@ These agents have overlapping scopes — use this matrix to route correctly.
 - **Need WCAG conformance** → `accessibility`
 - **Need to ship it** → `devops`
 - **Need to restore production now** → `incident`
+- **Need a Claude Code artifact (subagent / skill / hook / command / manifest)** → `agent-tooling`
 
 A typical implementation flow: `discovery` → `analysis` → `architect` → `backend`/`frontend` (+ `database`/`devops` as needed) → `testing` → `review` (+ `security`/`accessibility`/`performance` for deep audits when warranted).
 

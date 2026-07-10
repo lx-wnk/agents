@@ -6,6 +6,38 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.4.0] — 2026-07-10
+
+### Added
+
+- New `agent-tooling` agent (v1.0.0): Claude Code ecosystem engineer for
+  authoring/maintaining subagents, skills, hooks, slash commands, plugin and
+  marketplace manifests, `CLAUDE.md`/memory, and Agent-Context wiring. Added to
+  the full `agents` bundle and the `agents-core` group. Roster: 19 → 20.
+  Marketplace catalog version → 1.2.0.
+
+### Changed
+
+- Effort tiering: the coding/agentic build roles `backend` (→1.2.0),
+  `frontend` (→1.2.0), `database` (→1.1.0), `devops` (→1.2.0), and `testing`
+  (→1.1.0) raised from `high` to `xhigh`, matching Anthropic's recommended
+  effort for coding/agentic work on the current models (Opus 4.8 / Sonnet 5).
+  Deep-reasoning roles (`debug`, `incident`, `performance`, `refactor`) already
+  ran at `xhigh`.
+
+### Notes
+
+- No model-field changes were needed to adopt the latest models: the `model`
+  frontmatter uses tier aliases (`opus`/`sonnet`/`haiku`), which resolve to the
+  newest model in each family automatically (`opus`→Opus 4.8, `sonnet`→Sonnet
+  5, `haiku`→Haiku 4.5). Pinned dated IDs are intentionally avoided.
+- Best-practices doc updated to document the new `fable` tier (Fable 5) as a
+  reserved opt-in for the hardest roles, the alias-tracking behavior, and the
+  `xhigh` effort policy for build agents. No agent is assigned `fable` by
+  default.
+
+---
+
 ## [1.3.0] — 2026-06-25
 
 ### Added

@@ -9,6 +9,7 @@ Specialist sub-agents for AI-assisted development, packaged as a Claude Code Plu
 | Agent           | Role                                                                       |
 | --------------- | -------------------------------------------------------------------------- |
 | `accessibility` | WCAG audits, ARIA review, keyboard navigation, screen-reader compatibility |
+| `agent-tooling` | Authoring Claude Code artifacts — subagents, skills, hooks, commands, manifests |
 | `analysis`      | Impact analysis, dependency analysis, risk & complexity                    |
 | `architect`     | System & component architecture design and review                          |
 | `backend`       | Server-side development, APIs, business logic, service architecture        |
@@ -49,14 +50,14 @@ subagent_type: "analysis"   # or backend, frontend, debug, etc.
 
 ## Plugin Groups
 
-The full `agents` bundle ships all 19 specialists. Four opt-in subset plugins reduce the per-session description footprint — install only the groups you need rather than carrying all 19 descriptions in every session.
+The full `agents` bundle ships all 20 specialists. Four opt-in subset plugins reduce the per-session description footprint — install only the groups you need rather than carrying all 20 descriptions in every session.
 
 The `subagent_type` namespace is `<plugin>:<name>`, so existing `agents:<name>` names stay stable; group plugins add parallel names like `agents-web:frontend`.
 
 | Plugin                 | Agents                                                            |
 | ---------------------- | ---------------------------------------------------------------- |
-| `agents` (full bundle) | all 19                                                            |
-| `agents-core`          | discovery, analysis, architect, concept, research, docs, debug, refactor |
+| `agents` (full bundle) | all 20                                                            |
+| `agents-core`          | discovery, analysis, architect, concept, research, docs, debug, refactor, agent-tooling |
 | `agents-web`           | frontend, accessibility, chrome                                  |
 | `agents-ops`           | backend, database, devops, incident                              |
 | `agents-quality`       | review, security, testing, performance                           |
