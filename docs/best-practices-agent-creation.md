@@ -133,6 +133,15 @@ The `model` field takes a **tier alias**, not a dated model ID. Each alias resol
 
 Rule of thumb: Choose the weakest model that reliably fulfills the task. `fable` is a deliberate opt-in for the hardest roles only — do not reflexively raise agents to it; its premium pricing rarely pays off over `opus` for well-scoped work.
 
+**Opting an agent into `fable`** is a one-line frontmatter change — flip `model` and leave everything else alone:
+
+```yaml
+# in an existing agent's frontmatter
+model: fable   # was: opus
+```
+
+The alias resolves to the newest Fable model (currently Fable 5). Do this only for a role where a wrong result is genuinely costly (e.g. a bespoke `debug`/`incident` variant on an intractable production issue), and record the rationale in this file's tiering paragraph and the `CHANGELOG` — the same single-sourcing rule as every other tier. No agent in this repo ships on `fable`; the tier is documented and callable but intentionally unused by default.
+
 Keep the tiering rationale documented centrally — here and in the `CHANGELOG` — rather than as a per-agent frontmatter comment, so it stays single-sourced and cannot drift across 20 files. Current tiers in this repo: `opus` for deep-reasoning roles (architect, review, security, incident, debug), `haiku` for light prose (docs), `sonnet` for the well-defined build and analysis roles. Resist reflexively assigning `opus` to a role just because it feels important — measurement-driven roles (performance) and behavior-preserving roles (refactor) run fine on `sonnet`. `fable` is reserved for the hardest roles as a documented opt-in and is not assigned by default in any agent.
 
 Effort tiers track the same single-source rule. The coding/agentic build roles (`backend`, `frontend`, `database`, `devops`, `testing`) run at `xhigh`, matching Anthropic's recommended effort for coding/agentic work on the current models; deep-reasoning roles (`debug`, `incident`, `performance`, `refactor`) also use `xhigh`. Reserve `max` for cases where correctness outweighs cost; keep read-mostly and prose roles at `high`/`medium`.
