@@ -10,6 +10,11 @@ parsed line-by-line within the leading `---` fence — every field checked is a
 single-line scalar, so this is safe without a YAML parser.
 
 Exit code 0 = all invariants hold, 1 = one or more violations (printed).
+
+The version check pins the latest *released* CHANGELOG header (numeric
+`## [x.y.z]`); a `## [Unreleased]` section is intentionally skipped, so
+edits to shipped artifacts under `[Unreleased]` are not version-guarded
+until they land under a released header.
 """
 
 from __future__ import annotations
@@ -68,8 +73,17 @@ def load_json(path: Path):
     try:
         return json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
-        fail(f"{path.relative_to(REPO)}: invalid JSON — {exc}")
+        fail(f"{path.relative_to(REPO)}: invalid JSON: {exc}")
         return None
+
+
+def read_text(path: Path) -> str:
+    """Read a text file, degrading to a clean fail() (not a traceback) if absent."""
+    try:
+        return path.read_text(encoding="utf-8")
+    except OSError as exc:
+        fail(f"{path.relative_to(REPO)}: cannot read: {exc}")
+        return ""
 
 
 # --- 1. manifests + schema parse -------------------------------------------
@@ -98,40 +112,43 @@ for path in agent_files:
 
 count = len(agent_files)
 
-# --- 3. roster count consistency (README + marketplace) --------------------
-readme = README.read_text(encoding="utf-8")
-for m in re.finditer(r"all (\d+)", readme):
-    if int(m.group(1)) != count:
-        fail(f"README: 'all {m.group(1)}' != actual agent count {count}")
+# --- 3. roster count consistency (README + marketplace, fail-closed) --------
+# Assert the expected count-string is PRESENT rather than scanning for any
+# number. This ignores unrelated numbers ("install all 4 subset plugins") and
+# fails loudly if the marker is reworded or removed — a scan-and-compare check
+# silently stops checking when its pattern no longer matches.
+readme = read_text(README).lower()
+for marker in (f"all {count} specialist", f"all {count} description"):
+    if marker not in readme:
+        fail(f"README: expected roster marker '{marker}' not found (count {count})")
 
 if marketplace:
-    full = next((p for p in marketplace.get("plugins", []) if p.get("name") == "agents"), None)
-    if full:
-        m = re.search(r"All (\d+) specialist", full.get("description", ""))
-        if m and int(m.group(1)) != count:
-            fail(f"marketplace 'agents' description: 'All {m.group(1)}' != actual count {count}")
+    full = next((e for e in marketplace.get("plugins", []) if e.get("name") == "agents"), None)
+    if full and f"All {count} specialist" not in full.get("description", ""):
+        fail(f"marketplace 'agents' description: expected 'All {count} specialist' not found")
 
-# --- 4. marketplace agents: paths exist + no agent in two groups -----------
+# --- 4. subset groups partition the roster (exclusive + exhaustive) --------
 grouped: dict[str, str] = {}
 if marketplace:
-    for plugin in marketplace.get("plugins", []):
-        for rel in plugin.get("agents", []):
+    for entry in marketplace.get("plugins", []):
+        for rel in entry.get("agents", []):
             if not (REPO / rel).exists():
-                fail(f"marketplace plugin '{plugin.get('name')}': missing agents path {rel}")
+                fail(f"marketplace plugin '{entry.get('name')}': missing agents path {rel}")
             stem = Path(rel).stem
             if stem in grouped:
-                fail(f"agent '{stem}' is in two groups: {grouped[stem]} and {plugin.get('name')}")
+                fail(f"agent '{stem}' is in two groups: {grouped[stem]} and {entry.get('name')}")
             else:
-                grouped[stem] = plugin.get("name")
+                grouped[stem] = entry.get("name")
+    orphans = {p.stem for p in agent_files} - set(grouped)
+    if orphans:
+        fail(f"agents in no subset group: {', '.join(sorted(orphans))}")
 
-# --- 4b. docs bundle-count line matches the roster -------------------------
-if BEST_PRACTICES.exists():
-    for m in re.finditer(r"(\d+)-agent bundle", BEST_PRACTICES.read_text(encoding="utf-8")):
-        if int(m.group(1)) != count:
-            fail(f"best-practices: '{m.group(1)}-agent bundle' != actual count {count}")
+# --- 4b. docs bundle-count line matches the roster (fail-closed) -----------
+if BEST_PRACTICES.exists() and f"{count}-agent bundle" not in read_text(BEST_PRACTICES):
+    fail(f"best-practices: expected '{count}-agent bundle' not found (count {count})")
 
 # --- 5. version sync: CHANGELOG header == marketplace version --------------
-cl_match = re.search(r"^## \[(\d+\.\d+\.\d+)\]", CHANGELOG.read_text(encoding="utf-8"), re.M)
+cl_match = re.search(r"^## \[(\d+\.\d+\.\d+)\]", read_text(CHANGELOG), re.M)
 cl_version = cl_match.group(1) if cl_match else None
 mp_version = marketplace.get("version") if marketplace else None
 if cl_version and mp_version and cl_version != mp_version:
@@ -141,9 +158,9 @@ if plugin_json and "version" in plugin_json:
 
 # --- report ----------------------------------------------------------------
 if errors:
-    print(f"✗ {len(errors)} validation error(s):", file=sys.stderr)
+    print(f"FAIL: {len(errors)} validation error(s):", file=sys.stderr)
     for e in errors:
         print(f"  - {e}", file=sys.stderr)
     sys.exit(1)
 
-print(f"✓ all invariants hold ({count} agents, version {mp_version})")
+print(f"OK: all invariants hold ({count} agents, version {mp_version})")
