@@ -1,11 +1,11 @@
 ---
 name: testing
-version: 1.0.0
+version: 1.1.0
 description: "Testing specialist. Delegates here for writing tests, improving test coverage, fixing failing tests, test architecture, and TDD workflows. Use when tests need writing, coverage is insufficient, or test infrastructure needs improvement."
 tools: Read, Write, Edit, Glob, Grep, Bash
 model: sonnet
 maxTurns: 35
-effort: high
+effort: xhigh
 ---
 
 # Testing Agent
