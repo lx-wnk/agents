@@ -14,7 +14,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   authoring/maintaining subagents, skills, hooks, slash commands, plugin and
   marketplace manifests, `CLAUDE.md`/memory, and Agent-Context wiring. Added to
   the full `agents` bundle and the `agents-core` group. Roster: 19 → 20.
-  Marketplace catalog version → 1.2.0.
+  Marketplace catalog version → 1.4.0 (see version policy below).
 
 ### Changed
 
@@ -35,12 +35,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   reserved opt-in for the hardest roles, the alias-tracking behavior, and the
   `xhigh` effort policy for build agents. No agent is assigned `fable` by
   default.
-- Two version lines coexist and are not expected to match: the `## [x.y.z]`
-  headers in this file track the **release line** (now 1.4.0), documenting
-  agent and plugin changes; `marketplace.json`'s `version` is the independent
-  **marketplace-catalog** version (now 1.2.0), bumped only when the catalog's
-  plugin set or metadata changes. `plugin.json` itself carries no version — it
-  updates by git SHA (see #5).
+- Version policy: the `## [x.y.z]` header in this file and `marketplace.json`'s
+  `version` are kept in sync — both are 1.4.0 as of this release. Bump them
+  together on every release. (Prior to 1.4.0 they drifted; this release realigns
+  the catalog version, so it jumps 1.1.0 → 1.4.0.) `plugin.json` itself carries
+  no version — it updates by git SHA (see #5).
 
 ---
 
