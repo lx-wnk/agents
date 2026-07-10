@@ -1,7 +1,7 @@
 {
     "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
     "name": "lx-wnk",
-    "version": "1.1.0",
+    "version": "1.4.0",
     "description": "Specialist sub-agents for AI-assisted development.",
     "owner": {
         "name": "Alexander Wink",
@@ -10,7 +10,7 @@
     "plugins": [
         {
             "name": "agents",
-            "description": "All 19 specialist sub-agents for AI-assisted development (full bundle). Subagent types: agents:<name>.",
+            "description": "All 20 specialist sub-agents for AI-assisted development (full bundle). Subagent types: agents:<name>.",
             "source": "./",
             "author": {
                 "name": "Alexander Wink",
@@ -22,7 +22,7 @@
         },
         {
             "name": "agents-core",
-            "description": "Core engineering brain: discovery, analysis, architect, concept, research, docs, debug, refactor. Subagent types: agents-core:<name>.",
+            "description": "Core engineering brain: discovery, analysis, architect, concept, research, docs, debug, refactor, agent-tooling. Subagent types: agents-core:<name>.",
             "source": "./",
             "strict": false,
             "author": {
@@ -39,7 +39,8 @@
                 "./agents/research.md",
                 "./agents/docs.md",
                 "./agents/debug.md",
-                "./agents/refactor.md"
+                "./agents/refactor.md",
+                "./agents/agent-tooling.md"
             ],
             "hooks": "./hooks/hooks.json"
         },
