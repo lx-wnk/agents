@@ -17,7 +17,7 @@
                 "email": "git@jinnoflife.com"
             },
             "category": "development",
-            "keywords": ["agents", "sub-agents", "development", "ai"],
+            "keywords": ["claude-code", "claude-code-plugin", "subagents", "sub-agents", "ai-agents", "agentic", "development"],
             "hooks": "./hooks/hooks.json"
         },
         {

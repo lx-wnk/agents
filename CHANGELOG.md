@@ -6,6 +6,28 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- CI: `.github/workflows/validate.yml` runs `scripts/validate_repo.py` on push
+  and PR — a dependency-free consistency validator for this config-only repo.
+  It parses every manifest and agent frontmatter and enforces the invariants
+  that previously drifted by hand: CHANGELOG header == `marketplace.json`
+  version, roster count == agent-file count == README/marketplace counts, every
+  `agents:` path exists, `plugin.json` carries no version, `model`/`effort`
+  values are in range, no agent appears in more than one plugin group, and the
+  best-practices "N-agent bundle" line matches the roster.
+
+### Changed
+
+- `.gitignore`: ignore `.DS_Store` (macOS filesystem cruft).
+- `marketplace.json`: enriched the full-bundle `keywords` for marketplace
+  discoverability (`claude-code`, `claude-code-plugin`, `subagents`,
+  `ai-agents`, `agentic`). Catalog `version` bump deferred to the next release.
+
+---
+
 ## [1.4.0] — 2026-07-10
 
 ### Added
