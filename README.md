@@ -47,12 +47,6 @@ You delegate a task to a `subagent_type`; the agent runs isolated and returns ju
 | `security`      | OWASP audits, secret detection, auth review, CVE checks, threat modeling   |
 | `testing`       | Writing tests, TDD, coverage improvement, test infrastructure              |
 
-## Design Principles
-
-**Zero coupling to `.agent-context/`** — Agents detect tech stack from project manifests and receive project context via the delegating prompt. They work in any project without requiring the Agent-Context framework.
-
-**Persist block protocol** — For project-memory and decision-log updates (ADRs, lessons), write-coupled agents (`architect`, `docs`) return structured `persist:` blocks instead of writing those memory files themselves, so the orchestrator decides where the data lands. Source code and ordinary docs are still written directly via the agents' Write/Edit tools — the protocol covers only memory artifacts. Persist blocks are validated against `schemas/persist-block.schema.json` (typed fields, allowed target paths under `memory/` or `docs/`, no path traversal).
-
 ## Installation
 
 ```bash
@@ -88,6 +82,12 @@ claude plugin install agents-quality@lx-wnk  # verification specialists only
 ```
 
 Read-only agents (`review`, `security`, `analysis`, `research`) are enforced read-only by a plugin-level `PreToolUse` hook that blocks write-shaped Bash. A `SubagentStop` hook reminds the orchestrator to dispatch an independent verifier — never the authoring agent — after a write-capable agent finishes.
+
+## Design Principles
+
+**Zero coupling to `.agent-context/`** — Agents detect tech stack from project manifests and receive project context via the delegating prompt. They work in any project without requiring the Agent-Context framework.
+
+**Persist block protocol** — For project-memory and decision-log updates (ADRs, lessons), write-coupled agents (`architect`, `docs`) return structured `persist:` blocks instead of writing those memory files themselves, so the orchestrator decides where the data lands. Source code and ordinary docs are still written directly via the agents' Write/Edit tools — the protocol covers only memory artifacts. Persist blocks are validated against `schemas/persist-block.schema.json` (typed fields, allowed target paths under `memory/` or `docs/`, no path traversal).
 
 ## Usage with Agent-Context
 
