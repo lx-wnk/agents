@@ -1,6 +1,6 @@
 # AC Agents
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Release](https://img.shields.io/github/v/release/lx-wnk/agents)](https://github.com/lx-wnk/agents/releases) [![Claude Code Plugin](https://img.shields.io/badge/Claude%20Code-Plugin-7c3aed)](https://github.com/lx-wnk/agents)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![CI](https://img.shields.io/github/actions/workflow/status/lx-wnk/agents/validate.yml?branch=main)](https://github.com/lx-wnk/agents/actions/workflows/validate.yml) [![Release](https://img.shields.io/github/v/release/lx-wnk/agents)](https://github.com/lx-wnk/agents/releases) [![Claude Code Plugin](https://img.shields.io/badge/Claude%20Code-Plugin-7c3aed)](https://github.com/lx-wnk/agents)
 
 Specialist sub-agents for AI-assisted development, packaged as a Claude Code Plugin.
 
@@ -13,14 +13,18 @@ One generalist agent doing every kind of work accumulates context it doesn't nee
 - **Right-sized cost** — each agent pins the weakest model tier that reliably does its job instead of reflexively running everything on the largest.
 - **One task, one owner** — every agent solves exactly one clearly defined job. Sharp scopes mean routing is unambiguous and results are predictable.
 
-## How it works
+## Installation
 
-You delegate a task to a `subagent_type`; the agent runs isolated and returns just the result.
+```bash
+claude plugin marketplace add https://github.com/lx-wnk/agents
+claude plugin install agents@lx-wnk
+```
 
-1. **Route** — pick the specialist by `subagent_type` (or let the orchestrator match the task to an agent's description).
-2. **Detect** — the agent reads the tech stack from project manifests (`package.json`, `composer.json`, `go.mod`, …). No dependency on the Agent-Context framework — agents work in any project.
-3. **Run** — it does the one job in its own context, with only its declared tools.
-4. **Return** — source and docs are written directly; project-memory and decision-log updates come back as structured `persist:` blocks for the orchestrator to place (see Design Principles).
+Once installed, agents are available as `subagent_type` in the `Agent` tool:
+
+```
+subagent_type: "analysis"   # or backend, frontend, debug, etc.
+```
 
 ## Agents
 
@@ -47,18 +51,14 @@ You delegate a task to a `subagent_type`; the agent runs isolated and returns ju
 | `security`      | OWASP audits, secret detection, auth review, CVE checks, threat modeling   |
 | `testing`       | Writing tests, TDD, coverage improvement, test infrastructure              |
 
-## Installation
+## How it works
 
-```bash
-claude plugin marketplace add https://github.com/lx-wnk/agents
-claude plugin install agents@lx-wnk
-```
+You delegate a task to a `subagent_type`; the agent runs isolated and returns just the result.
 
-Once installed, agents are available as `subagent_type` in the `Agent` tool:
-
-```
-subagent_type: "analysis"   # or backend, frontend, debug, etc.
-```
+1. **Route** — pick the specialist by `subagent_type` (or let the orchestrator match the task to an agent's description).
+2. **Detect** — the agent reads the tech stack from project manifests (`package.json`, `composer.json`, `go.mod`, …). No dependency on the Agent-Context framework — agents work in any project.
+3. **Run** — it does the one job in its own context, with only its declared tools.
+4. **Return** — source and docs are written directly; project-memory and decision-log updates come back as structured `persist:` blocks for the orchestrator to place (see Design Principles).
 
 ## Plugin Groups
 
@@ -92,6 +92,10 @@ Read-only agents (`review`, `security`, `analysis`, `research`) are enforced rea
 ## Usage with Agent-Context
 
 See [docs/integration-with-agent-context.md](docs/integration-with-agent-context.md) for how to wire these agents into the Agent-Context framework (delegating prompt patterns, persist block consumption).
+
+## Contributing
+
+Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md) for the agent-proposal flow, validation, and PR conventions. Please also read our [Code of Conduct](CODE_OF_CONDUCT.md). To report a vulnerability, follow the private disclosure process in [SECURITY.md](SECURITY.md).
 
 ## License
 
