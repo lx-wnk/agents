@@ -52,7 +52,7 @@ The specialist does not know about `.agent-context/` — you must provide contex
 | `discovery`     | layer1 (stack) — optional                                         |
 | `chrome`        | layer1 (local domains/ports)                                      |
 
-For `debug`, `analysis`, `performance`, `research`: no structured context injection needed — they work well from the task description alone.
+For `debug`, `analysis`, `performance`, `research`, `agent-tooling`: no structured context injection needed — they work well from the task description alone (`agent-tooling` reads the existing Claude Code artifacts it edits directly).
 
 ## Persist Block Protocol
 
@@ -135,7 +135,7 @@ Absolute paths, `..` traversal, dotfiles, and other extensions are rejected. The
 
 **Hard rule:** the agent that VERIFIES a change must never be the agent that PRODUCED it (fresh-eyes). Route verification to a read-only agent — `review` for general changes, `security` when auth, crypto, secrets, or dependencies were touched.
 
-**Mechanism:** the plugin ships a `SubagentStop` hook ([`hooks/recommend-verifier.sh`](../hooks/recommend-verifier.sh)) that injects an `additionalContext` reminder when a write-capable agent (`backend`, `frontend`, `database`, `refactor`, `devops`, `debug`, `accessibility`, `chrome`, `testing`) finishes, telling the orchestrator to dispatch an independent reviewer before merge.
+**Mechanism:** the plugin ships a `SubagentStop` hook ([`hooks/recommend-verifier.sh`](../hooks/recommend-verifier.sh)) that injects an `additionalContext` reminder when a write-capable agent (`backend`, `frontend`, `database`, `refactor`, `devops`, `debug`, `accessibility`, `chrome`, `testing`, `agent-tooling`) finishes, telling the orchestrator to dispatch an independent reviewer before merge.
 
 Plugin-shipped agents cannot carry `hooks:` in their own frontmatter (ignored for security), which is why this gate lives at plugin level in `hooks/hooks.json`, scoped via the `agent_type` field present in the hook payload.
 

@@ -13,7 +13,7 @@ input=$(cat)
 agent=$(printf '%s' "$input" | jq -r '.agent_type // empty')
 
 case "$agent" in
-  backend|frontend|database|refactor|devops|debug|accessibility|chrome|testing) ;;
+  backend|frontend|database|refactor|devops|debug|accessibility|chrome|testing|agent-tooling) ;;
   *) exit 0 ;;
 esac
 
