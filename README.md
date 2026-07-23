@@ -4,6 +4,24 @@
 
 Specialist sub-agents for AI-assisted development, packaged as a Claude Code Plugin.
 
+## Why specialist agents?
+
+One generalist agent doing every kind of work accumulates context it doesn't need, carries every tool whether it uses it or not, and blurs the judgement call of _which_ approach fits. A focused specialist avoids all three:
+
+- **Context isolation** — each agent runs in its own window. A `security` audit doesn't drag the `frontend` session's half-finished refactor along with it, and a long investigation never crowds out the orchestrator's own context.
+- **Least privilege** — an agent declares only the tools it actually uses. Read-only agents (`review`, `security`, `analysis`, `research`) carry no `Write`/`Edit` _and_ are enforced by a `PreToolUse` hook that blocks write-shaped Bash, so an audit cannot mutate the code it audits.
+- **Right-sized cost** — each agent pins the weakest model tier that reliably does its job instead of reflexively running everything on the largest.
+- **One task, one owner** — every agent solves exactly one clearly defined job. Sharp scopes mean routing is unambiguous and results are predictable.
+
+## How it works
+
+You delegate a task to a `subagent_type`; the agent runs isolated and returns just the result.
+
+1. **Route** — pick the specialist by `subagent_type` (or let the orchestrator match the task to an agent's description).
+2. **Detect** — the agent reads the tech stack from project manifests (`package.json`, `composer.json`, `go.mod`, …). No dependency on the Agent-Context framework — agents work in any project.
+3. **Run** — it does the one job in its own context, with only its declared tools.
+4. **Return** — source and docs are written directly; project-memory and decision-log updates come back as structured `persist:` blocks for the orchestrator to place (see Design Principles).
+
 ## Agents
 
 | Agent           | Role                                                                       |
