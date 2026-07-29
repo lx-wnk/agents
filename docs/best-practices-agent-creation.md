@@ -63,7 +63,7 @@ Use `disallowedTools` for read-mostly agents that need many MCP tools — listin
 | Field      | Description                                                                  |
 | ---------- | ---------------------------------------------------------------------------- |
 | `model`    | `fable` / `opus` / `sonnet` / `haiku` / `inherit` (default). See table below  |
-| `effort`   | `low` / `medium` / `high` / `xhigh` / `max` — token budget and reasoning depth. This repo uses `xhigh` (between `high` and `max`) for deep-reasoning and coding/agentic roles (`debug`, `incident`, `performance`, `refactor`, `backend`, `frontend`, `database`, `devops`, `testing`); `xhigh` is Anthropic's recommended effort for coding/agentic work on the current models (Opus 4.8 / Sonnet 5) |
+| `effort`   | `low` / `medium` / `high` / `xhigh` / `max` — token budget and reasoning depth. This repo uses `xhigh` (between `high` and `max`) for deep-reasoning and coding/agentic roles (`debug`, `incident`, `performance`, `refactor`, `backend`, `frontend`, `database`, `devops`, `testing`, `agent-tooling`); `xhigh` is Anthropic's recommended effort for coding/agentic work on the current models (Opus 4.8 / Sonnet 5) |
 | `maxTurns` | Realistic ceiling. Too high = runaway costs; too low = premature termination |
 
 #### Permissions & Isolation
@@ -144,7 +144,7 @@ The alias resolves to the newest Fable model (currently Fable 5). Do this only f
 
 Keep the tiering rationale documented centrally — here and in the `CHANGELOG` — rather than as a per-agent frontmatter comment, so it stays single-sourced and cannot drift across 20 files. Current tiers in this repo: `opus` for deep-reasoning roles (architect, review, security, incident, debug), `haiku` for light prose (docs), `sonnet` for the well-defined build and analysis roles. Resist reflexively assigning `opus` to a role just because it feels important — measurement-driven roles (performance) and behavior-preserving roles (refactor) run fine on `sonnet`. `fable` is reserved for the hardest roles as a documented opt-in and is not assigned by default in any agent.
 
-Effort tiers track the same single-source rule. The coding/agentic build roles (`backend`, `frontend`, `database`, `devops`, `testing`) run at `xhigh`, matching Anthropic's recommended effort for coding/agentic work on the current models; deep-reasoning roles (`debug`, `incident`, `performance`, `refactor`) also use `xhigh`. Reserve `max` for cases where correctness outweighs cost; keep read-mostly and prose roles at `high`/`medium`.
+Effort tiers track the same single-source rule. The coding/agentic build roles (`backend`, `frontend`, `database`, `devops`, `testing`) run at `xhigh`, matching Anthropic's recommended effort for coding/agentic work on the current models; deep-reasoning and agentic-authoring roles (`debug`, `incident`, `performance`, `refactor`, `agent-tooling`) also use `xhigh`. Reserve `max` for cases where correctness outweighs cost; keep read-mostly and prose roles at `high`/`medium`.
 
 ### Tool Minimization
 
