@@ -8,6 +8,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+---
+
+## [1.5.0] — 2026-07-29
+
 ### Added
 
 - CI: `.github/workflows/validate.yml` runs `scripts/validate_repo.py` on push
@@ -18,13 +22,33 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   `agents:` path exists, `plugin.json` carries no version, `model`/`effort`
   values are in range, no agent appears in more than one plugin group, and the
   best-practices "N-agent bundle" line matches the roster.
+- `.github/CODEOWNERS`: default owner for the whole repo, so every PR gets an
+  automatic review request.
+- README: "Why specialist agents?" and "How it works" sections, a CI status
+  badge, and a Contributing section linking `CONTRIBUTING.md`,
+  `CODE_OF_CONDUCT.md`, and `SECURITY.md`.
+
+### Fixed
+
+- `hooks/recommend-verifier.sh`: `agent-tooling` was missing from the
+  write-capable agent list, so finishing that agent did not trigger the
+  verifier-not-author reminder. Added, closing the drift left by the 1.4.0
+  roster addition.
 
 ### Changed
 
-- `.gitignore`: ignore `.DS_Store` (macOS filesystem cruft).
+- README reordered to an inverted-pyramid front door: Why → Installation →
+  Agents → How it works → Plugin Groups → Design Principles → Contributing.
+- Docs aligned with the 1.4.0 roster: `agent-tooling` now listed in the `xhigh`
+  effort tier and the verifier-gate agent list
+  (`docs/best-practices-agent-creation.md`,
+  `docs/integration-with-agent-context.md`).
+- `.gitignore`: ignore `.DS_Store` (macOS filesystem cruft) and `/outputs/`
+  (skill report artifacts).
 - `marketplace.json`: enriched the full-bundle `keywords` for marketplace
   discoverability (`claude-code`, `claude-code-plugin`, `subagents`,
-  `ai-agents`, `agentic`). Catalog `version` bump deferred to the next release.
+  `ai-agents`, `agentic`). Catalog version → 1.5.0 (see version policy in
+  1.4.0).
 
 ---
 
