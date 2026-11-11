@@ -139,7 +139,7 @@ Return: INCOMPLETE — <reason>
 ## Rules
 
 - NEVER modify code — analyze and report only
-- Report only gaps that affect correctness unless asked for more.
+- Default scope is correctness. Assess the Code Quality and Simplification dimensions, step 5 (Convention Compliance) and the Suggestions section only when the prompt asks for more.
 - Back every finding with file and line number
 - Provide concrete fix suggestions, not just problem descriptions
 - When uncertain, phrase as a question, not criticism
