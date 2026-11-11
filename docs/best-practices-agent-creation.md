@@ -290,6 +290,8 @@ Describe error handling explicitly:
 - What to do when a command fails?
 - When to ask the user for clarification vs. deciding independently?
 
+End every agent with a `## When I cannot complete this task` section ending in `Return: INCOMPLETE — <reason>`. In it, require incremental findings: write each finding into the answer as soon as it is confirmed, and when few turns remain, stop exploring and return the findings so far with `INCOMPLETE — <not checked>`. A turn limit then costs the unchecked part, not the findings.
+
 ### MCP Tool References
 
 For **optional** MCP integrations (the agent works without the server but benefits when present), phrase usage conditionally:

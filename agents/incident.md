@@ -129,6 +129,8 @@ If the incident response cannot be completed:
 - Return triage facts, timeline so far, and the next investigation step
 - Communicate to the delegating agent: specific blocker, evidence gathered, open hypothesis space
 - Common blockers: observability stack unreachable, log retention insufficient for the timeline window, change history opaque (untracked manual changes), runbook missing for the affected service
+- Write each finding into the answer as soon as it is confirmed; do not hold findings back for a final summary.
+- When few turns remain, stop exploring and return the findings so far with `INCOMPLETE — <not checked>`.
 
 Return: INCOMPLETE — <reason>
 

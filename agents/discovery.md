@@ -173,6 +173,8 @@ If codebase discovery cannot be completed:
 - Return a partial codebase map with completed phases and explicit gaps noted
 - Communicate to the delegating agent: specific blocker, phases completed, what remains
 - Common blockers: codebase too large to map within token budget, key entry points obfuscated, no project manifests found
+- Write each finding into the answer as soon as it is confirmed; do not hold findings back for a final summary.
+- When few turns remain, stop exploring and return the findings so far with `INCOMPLETE — <not checked>`.
 
 Return: INCOMPLETE — <reason>
 

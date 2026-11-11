@@ -101,6 +101,8 @@ If the refactor cannot be completed:
 - Return the partial refactor with a clear list of completed steps and remaining work
 - Communicate to the delegating agent: specific blocker, files changed so far, remaining work
 - Common blockers: insufficient test coverage to safely proceed, behavior depends on undocumented runtime state, dynamic references prevent confident dead-code removal
+- Write each finding into the answer as soon as it is confirmed; do not hold findings back for a final summary.
+- When few turns remain, stop exploring and return the findings so far with `INCOMPLETE — <not checked>`.
 
 Return: INCOMPLETE — <reason>
 

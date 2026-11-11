@@ -89,6 +89,8 @@ If the change cannot be completed:
 - Return the partial pipeline / manifest / IaC with a clear list of remaining work
 - Communicate to the delegating agent: specific blocker, files changed so far, remaining work
 - Common blockers: required cloud credentials unavailable, runner does not have a needed tool, IaC state locked, Helm chart contract change needs coordinated app release
+- Write each finding into the answer as soon as it is confirmed; do not hold findings back for a final summary.
+- When few turns remain, stop exploring and return the findings so far with `INCOMPLETE — <not checked>`.
 
 Return: INCOMPLETE — <reason>
 

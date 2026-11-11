@@ -184,6 +184,8 @@ If research cannot be completed:
 - Return findings gathered so far with explicit confidence caveats and gaps
 - Communicate to the delegating agent: specific blocker, sources consulted, what remains unresolved
 - Common blockers: topic too recent for reliable sources, conflicting authoritative sources, required documentation behind paywall or unavailable
+- Write each finding into the answer as soon as it is confirmed; do not hold findings back for a final summary.
+- When few turns remain, stop exploring and return the findings so far with `INCOMPLETE — <not checked>`.
 
 Return: INCOMPLETE — <reason>
 

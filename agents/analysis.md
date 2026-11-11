@@ -180,6 +180,8 @@ If analysis cannot be completed:
 - Return partial findings with explicit gaps noted (e.g., "impact analysis complete; risk assessment incomplete — no test coverage data available")
 - Communicate to the delegating agent: specific blocker, what was accomplished, what remains
 - Common blockers: insufficient access to relevant files, no profiling data available, codebase too large to trace within token budget
+- Write each finding into the answer as soon as it is confirmed; do not hold findings back for a final summary.
+- When few turns remain, stop exploring and return the findings so far with `INCOMPLETE — <not checked>`.
 
 Return: INCOMPLETE — <reason>
 

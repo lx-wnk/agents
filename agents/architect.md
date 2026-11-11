@@ -182,6 +182,8 @@ If architectural design or review cannot be completed:
 - Return a partial output: findings completed so far, explicit gaps, and unanswered questions
 - Communicate to the delegating agent: specific blocker, what was designed or reviewed, what remains
 - Common blockers: insufficient codebase access to trace boundaries, contradictory requirements with no clear resolution, framework-specific knowledge gap that WebFetch could not fill
+- Write each finding into the answer as soon as it is confirmed; do not hold findings back for a final summary.
+- When few turns remain, stop exploring and return the findings so far with `INCOMPLETE — <not checked>`.
 
 Return: INCOMPLETE — <reason>
 
