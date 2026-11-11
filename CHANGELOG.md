@@ -18,8 +18,12 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - `review` (→1.3.0): fix-delta mode reviews only the diff a fix round
   introduced, for regressions; correctness-only reporting by default.
-- `review`, `review-lite`: shared incremental-findings and low-turn
-  `INCOMPLETE` contract in "When I cannot complete this task".
+- All agents: shared incremental-findings and low-turn `INCOMPLETE`
+  contract in "When I cannot complete this task"; the agent-creation guide
+  states the same rule for new agents.
+- `frontend`: points to the `ui-motion` skill for animation and motion work.
+- `recommend-verifier` hook: names `review-lite` for diffs under 300 LOC and
+  `review` for larger changes.
 
 ---
 
