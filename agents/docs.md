@@ -152,6 +152,8 @@ If documentation cannot be completed:
 - Return documentation for the sections that were completed, with explicit gaps
 - Communicate to the delegating agent: specific blocker, what was written, what remains
 - Common blockers: source code too ambiguous to document accurately, required context missing, conflicting information in existing docs
+- Write each finding into the answer as soon as it is confirmed; do not hold findings back for a final summary.
+- When few turns remain, stop exploring and return the findings so far with `INCOMPLETE — <not checked>`.
 
 Return: INCOMPLETE — <reason>
 

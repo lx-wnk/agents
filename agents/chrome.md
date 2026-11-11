@@ -115,6 +115,8 @@ If browser automation cannot be completed:
 - Return screenshots captured so far with findings documented up to the point of failure
 - Communicate to the delegating agent: specific blocker, what flows were tested, what remains
 - Common blockers: claude-in-chrome MCP server unavailable, page not loading, authentication wall blocking test flow
+- Write each finding into the answer as soon as it is confirmed; do not hold findings back for a final summary.
+- When few turns remain, stop exploring and return the findings so far with `INCOMPLETE — <not checked>`.
 
 Return: INCOMPLETE — <reason>
 

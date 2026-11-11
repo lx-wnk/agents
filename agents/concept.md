@@ -147,6 +147,8 @@ If concept creation cannot be completed:
 - Return a partial concept with completed sections and explicit TODO markers for gaps
 - Communicate to the delegating agent: specific blocker, what was researched, what remains
 - Common blockers: requirements too ambiguous to proceed, key stakeholder context missing, technology constraints unknown
+- Write each finding into the answer as soon as it is confirmed; do not hold findings back for a final summary.
+- When few turns remain, stop exploring and return the findings so far with `INCOMPLETE — <not checked>`.
 
 Return: INCOMPLETE — <reason>
 

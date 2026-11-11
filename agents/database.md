@@ -97,6 +97,8 @@ If the migration or optimization cannot be completed:
 - Return the migration draft with a clear list of remaining concerns
 - Communicate to the delegating agent: specific blocker, partial migration written, what is unverified
 - Common blockers: production-size data unavailable for performance estimates, ambiguous business rule for data backfill, missing rollback path for an irreversible change
+- Write each finding into the answer as soon as it is confirmed; do not hold findings back for a final summary.
+- When few turns remain, stop exploring and return the findings so far with `INCOMPLETE — <not checked>`.
 
 Return: INCOMPLETE — <reason>
 
