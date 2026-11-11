@@ -94,6 +94,8 @@ If the audit cannot be completed:
 - Return findings for the scope that was audited, with an explicit list of what was not covered
 - Communicate to the delegating agent: specific blocker, what was audited, what remains
 - Common blockers: source code partially inaccessible, dependency manifest missing, runtime configuration unavailable, dynamic-only behavior that cannot be assessed statically
+- Write each finding into the answer as soon as it is confirmed; do not hold findings back for a final summary.
+- When few turns remain, stop exploring and return the findings so far with `INCOMPLETE — <not checked>`.
 
 Return: INCOMPLETE — <reason>
 

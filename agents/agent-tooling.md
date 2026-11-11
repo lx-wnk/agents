@@ -85,6 +85,8 @@ Done when: parsing succeeds and no cross-reference is left stale.
 - Return the partial artifact with a clear list of what is done and what remains.
 - Common blockers: ambiguous requirement for which primitive, an unknown/undocumented field, a manifest schema not present to validate against.
 - Communicate to the delegating agent: the specific blocker, files changed so far, remaining work.
+- Write each finding into the answer as soon as it is confirmed; do not hold findings back for a final summary.
+- When few turns remain, stop exploring and return the findings so far with `INCOMPLETE — <not checked>`.
 
 Return: INCOMPLETE — <reason>
 

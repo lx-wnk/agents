@@ -129,6 +129,8 @@ If the performance analysis cannot be completed:
 - Return findings up to the point of the blocker with explicit caveats
 - Communicate to the delegating agent: specific blocker, metrics captured so far, what analysis remains
 - Common blockers: no profiling data available, production metrics inaccessible, unable to reproduce the performance issue in a measurable way
+- Write each finding into the answer as soon as it is confirmed; do not hold findings back for a final summary.
+- When few turns remain, stop exploring and return the findings so far with `INCOMPLETE — <not checked>`.
 
 Return: INCOMPLETE — <reason>
 

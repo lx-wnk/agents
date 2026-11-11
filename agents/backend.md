@@ -120,6 +120,8 @@ If implementation cannot be completed:
 - Return partial implementation with a clear list of what is done and what remains
 - Communicate to the delegating agent: specific blocker, files changed so far, remaining work
 - Common blockers: missing tech stack context, inaccessible database, ambiguous requirements, test environment unavailable
+- Write each finding into the answer as soon as it is confirmed; do not hold findings back for a final summary.
+- When few turns remain, stop exploring and return the findings so far with `INCOMPLETE — <not checked>`.
 
 Return: INCOMPLETE — <reason>
 

@@ -90,6 +90,7 @@ General implementation rules:
 - Build mobile-first, then enhance for wider viewports
 - Use semantic HTML elements (`nav`, `main`, `section`, `button`) over generic `div`/`span`
 - Provide keyboard navigation and ARIA attributes for interactive elements
+- For animation and motion work, load the skill `ui-motion`
 
 Done when: component implemented following project patterns and passes linting.
 
@@ -129,6 +130,8 @@ If implementation cannot be completed:
 - Return partial implementation with a clear list of what is done and what remains
 - Communicate to the delegating agent: specific blocker, files changed so far, remaining work
 - Common blockers: design reference unavailable, framework version mismatch, required component library not found
+- Write each finding into the answer as soon as it is confirmed; do not hold findings back for a final summary.
+- When few turns remain, stop exploring and return the findings so far with `INCOMPLETE — <not checked>`.
 
 Return: INCOMPLETE — <reason>
 

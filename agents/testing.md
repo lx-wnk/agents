@@ -131,6 +131,8 @@ If tests cannot be completed:
 - Return tests that were written, with a list of what remains untested and why
 - Communicate to the delegating agent: specific blocker, test files created, what coverage gaps remain
 - Common blockers: test environment unavailable, external dependency cannot be mocked, test framework not configured
+- Write each finding into the answer as soon as it is confirmed; do not hold findings back for a final summary.
+- When few turns remain, stop exploring and return the findings so far with `INCOMPLETE — <not checked>`.
 
 Return: INCOMPLETE — <reason>
 

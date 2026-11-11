@@ -10,7 +10,7 @@
     "plugins": [
         {
             "name": "agents",
-            "description": "All 20 specialist sub-agents for AI-assisted development (full bundle). Subagent types: agents:<name>.",
+            "description": "All 21 specialist sub-agents for AI-assisted development (full bundle). Subagent types: agents:<name>.",
             "source": "./",
             "author": {
                 "name": "Alexander Wink",
@@ -83,7 +83,7 @@
         },
         {
             "name": "agents-quality",
-            "description": "Verification specialists: review, security, testing, performance. Subagent types: agents-quality:<name>.",
+            "description": "Verification specialists: review, review-lite, security, testing, performance. Subagent types: agents-quality:<name>.",
             "source": "./",
             "strict": false,
             "author": {
@@ -94,6 +94,7 @@
             "keywords": ["agents", "review", "security", "testing"],
             "agents": [
                 "./agents/review.md",
+                "./agents/review-lite.md",
                 "./agents/security.md",
                 "./agents/testing.md",
                 "./agents/performance.md"

@@ -20,7 +20,7 @@ esac
 jq -n --arg a "$agent" '{
   hookSpecificOutput: {
     hookEventName: "SubagentStop",
-    additionalContext: ("Verifier protocol: write-capable agent [" + $a + "] finished. Dispatch an independent reviewer that is NOT [" + $a + "] before merging its work — use review for general changes, or security when auth, crypto, secrets, or dependencies were touched.")
+    additionalContext: ("Verifier protocol: write-capable agent [" + $a + "] finished. Dispatch an independent reviewer that is NOT [" + $a + "] before merging its work — use review-lite for diffs under 300 LOC (it has no shell: put the diff and the acceptance criteria in its prompt), review for larger general changes, or security when auth, crypto, secrets, or dependencies were touched.")
   }
 }'
 

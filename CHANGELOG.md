@@ -8,6 +8,23 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- `review-lite` agent (1.0.0): correctness-only reviewer for diffs under 300
+  LOC on `sonnet`, tools `Read, Grep, Glob` (read-only by capability, no Bash).
+  Added to the full bundle and the `agents-quality` group. Roster: 20 → 21.
+
+### Changed
+
+- `review` (→1.3.0): fix-delta mode reviews only the diff a fix round
+  introduced, for regressions; correctness-only reporting by default.
+- All agents: shared incremental-findings and low-turn `INCOMPLETE`
+  contract in "When I cannot complete this task"; the agent-creation guide
+  states the same rule for new agents.
+- `frontend`: points to the `ui-motion` skill for animation and motion work.
+- `recommend-verifier` hook: names `review-lite` for diffs under 300 LOC and
+  `review` for larger changes.
+
 ---
 
 ## [1.5.0] — 2026-07-29

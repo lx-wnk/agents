@@ -142,7 +142,7 @@ model: fable   # was: opus
 
 The alias resolves to the newest Fable model (currently Fable 5). Do this only for a role where a wrong result is genuinely costly (e.g. a bespoke `debug`/`incident` variant on an intractable production issue), and record the rationale in this file's tiering paragraph and the `CHANGELOG` — the same single-sourcing rule as every other tier. No agent in this repo ships on `fable`; the tier is documented and callable but intentionally unused by default.
 
-Keep the tiering rationale documented centrally — here and in the `CHANGELOG` — rather than as a per-agent frontmatter comment, so it stays single-sourced and cannot drift across 20 files. Current tiers in this repo: `opus` for deep-reasoning roles (architect, review, security, incident, debug), `haiku` for light prose (docs), `sonnet` for the well-defined build and analysis roles. Resist reflexively assigning `opus` to a role just because it feels important — measurement-driven roles (performance) and behavior-preserving roles (refactor) run fine on `sonnet`. `fable` is reserved for the hardest roles as a documented opt-in and is not assigned by default in any agent.
+Keep the tiering rationale documented centrally — here and in the `CHANGELOG` — rather than as a per-agent frontmatter comment, so it stays single-sourced and cannot drift across 21 files. Current tiers in this repo: `opus` for deep-reasoning roles (architect, review, security, incident, debug), `haiku` for light prose (docs), `sonnet` for the well-defined build and analysis roles and for `review-lite` (small-diff correctness checks). Resist reflexively assigning `opus` to a role just because it feels important — measurement-driven roles (performance) and behavior-preserving roles (refactor) run fine on `sonnet`. `fable` is reserved for the hardest roles as a documented opt-in and is not assigned by default in any agent.
 
 Effort tiers track the same single-source rule. The coding/agentic build roles (`backend`, `frontend`, `database`, `devops`, `testing`) run at `xhigh`, matching Anthropic's recommended effort for coding/agentic work on the current models; deep-reasoning and agentic-authoring roles (`debug`, `incident`, `performance`, `refactor`, `agent-tooling`) also use `xhigh`. Reserve `max` for cases where correctness outweighs cost; keep read-mostly and prose roles at `high`/`medium`.
 
@@ -249,7 +249,7 @@ Tool descriptions are tokens too. An agent that loads 30 MCP tools at startup pa
 
 ### Plugin Grouping (Description Footprint)
 
-Every installed agent contributes its `description` to the routing context each session. A 20-agent bundle is 20 description blocks the orchestrator pays for on every turn — a fixed context tax before any work begins. To bound it, this marketplace ships the full `agents` bundle plus four opt-in subset plugins — `agents-core`, `agents-web`, `agents-ops`, `agents-quality` — each exposing only its slice via the marketplace entry's `agents:` array (`strict: false`, `source: "./"`, one shared repo, no file duplication). Users install only the groups they need. The subagent_type namespace is `<plugin>:<name>`, so `agents:frontend` (full bundle) and `agents-web:frontend` (web group) both resolve — existing names stay stable while the footprint becomes opt-in.
+Every installed agent contributes its `description` to the routing context each session. A 21-agent bundle is 21 description blocks the orchestrator pays for on every turn — a fixed context tax before any work begins. To bound it, this marketplace ships the full `agents` bundle plus four opt-in subset plugins — `agents-core`, `agents-web`, `agents-ops`, `agents-quality` — each exposing only its slice via the marketplace entry's `agents:` array (`strict: false`, `source: "./"`, one shared repo, no file duplication). Users install only the groups they need. The subagent_type namespace is `<plugin>:<name>`, so `agents:frontend` (full bundle) and `agents-web:frontend` (web group) both resolve — existing names stay stable while the footprint becomes opt-in.
 
 ### Compaction & Memory
 
@@ -289,6 +289,8 @@ Describe error handling explicitly:
 - What to do when a file is not found?
 - What to do when a command fails?
 - When to ask the user for clarification vs. deciding independently?
+
+End every agent with a `## When I cannot complete this task` section ending in `Return: INCOMPLETE — <reason>`. In it, require incremental findings: write each finding into the answer as soon as it is confirmed, and when few turns remain, stop exploring and return the findings so far with `INCOMPLETE — <not checked>`. A turn limit then costs the unchecked part, not the findings.
 
 ### MCP Tool References
 
@@ -474,6 +476,7 @@ These agents have overlapping scopes — use this matrix to route correctly.
 | ----- | ---------------- | --------------- | --------------- |
 | `architect` | How should this be structured? | ADRs, design docs | Don't use for PR line-by-line review or general risk assessment |
 | `review` | Is this change safe to merge? | Findings report | Don't use for deep security or performance audits — those have dedicated agents |
+| `review-lite` | Does this small diff have a correctness gap? | Correctness findings | Don't use for diffs of 300 LOC or more, or for style/architecture review — that is `review` |
 | `security` | What attacks are possible against this? | Security audit with severity and threat paths | Don't use for general code quality — that is `review` |
 | `analysis` | What is the blast radius / risk / complexity? | Risk, impact, or debt report | Don't use when you need a design recommendation — analysis informs, architect decides |
 | `discovery` | What does this codebase do? | Codebase map | Don't use for reviewing specific changes — use for onboarding and orientation |

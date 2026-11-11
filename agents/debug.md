@@ -116,6 +116,8 @@ If the bug cannot be fixed:
 - Return the investigation log: hypotheses tested, what was ruled out, what remains uncertain
 - Communicate to the delegating agent: specific blocker, current best hypothesis, suggested next steps
 - Common blockers: cannot reproduce the bug after multiple attempts, root cause requires production access, bug appears environment-specific
+- Write each finding into the answer as soon as it is confirmed; do not hold findings back for a final summary.
+- When few turns remain, stop exploring and return the findings so far with `INCOMPLETE — <not checked>`.
 
 Return: INCOMPLETE — <reason>
 
