@@ -48,6 +48,7 @@ subagent_type: "analysis"   # or backend, frontend, debug, etc.
 | `refactor`      | Large-scale refactors, pattern extraction, modernization, dead-code        |
 | `research`      | Technology evaluation, best practices, API/SDK documentation               |
 | `review`        | PR reviews, code quality checks, architecture triage                       |
+| `review-lite`   | Correctness-only review of small diffs (< 300 LOC), read-only by capability |
 | `security`      | OWASP audits, secret detection, auth review, CVE checks, threat modeling   |
 | `testing`       | Writing tests, TDD, coverage improvement, test infrastructure              |
 
@@ -62,17 +63,17 @@ You delegate a task to a `subagent_type`; the agent runs isolated and returns ju
 
 ## Plugin Groups
 
-The full `agents` bundle ships all 20 specialists. Four opt-in subset plugins reduce the per-session description footprint — install only the groups you need rather than carrying all 20 descriptions in every session.
+The full `agents` bundle ships all 21 specialists. Four opt-in subset plugins reduce the per-session description footprint — install only the groups you need rather than carrying all 21 descriptions in every session.
 
 The `subagent_type` namespace is `<plugin>:<name>`, so existing `agents:<name>` names stay stable; group plugins add parallel names like `agents-web:frontend`.
 
 | Plugin                 | Agents                                                            |
 | ---------------------- | ---------------------------------------------------------------- |
-| `agents` (full bundle) | all 20                                                            |
+| `agents` (full bundle) | all 21                                                            |
 | `agents-core`          | discovery, analysis, architect, concept, research, docs, debug, refactor, agent-tooling |
 | `agents-web`           | frontend, accessibility, chrome                                  |
 | `agents-ops`           | backend, database, devops, incident                              |
-| `agents-quality`       | review, security, testing, performance                           |
+| `agents-quality`       | review, review-lite, security, testing, performance              |
 
 ```bash
 claude plugin marketplace add https://github.com/lx-wnk/agents
